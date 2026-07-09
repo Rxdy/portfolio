@@ -1,0 +1,15 @@
+services:
+  frontend:
+    build: ./frontend
+    container_name: portfolio-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      # Le code source est monté pour le hot reload...
+      - ./frontend:/app
+      # ...mais node_modules reste dans le conteneur (volume anonyme)
+      - /app/node_modules
+    environment:
+      # Nécessaire pour que le HMR de Vite fonctionne dans Docker
+      - CHOKIDAR_USEPOLLING=true
+    command: npm run dev
