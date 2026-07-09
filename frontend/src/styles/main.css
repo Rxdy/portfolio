@@ -1,0 +1,104 @@
+/* ---------- Thème clair (par défaut) ---------- */
+:root,
+:root[data-theme='light'] {
+  color-scheme: light;
+  --color-bg: #f5f7fb;
+  --color-surface: #ffffff;
+  --color-border: #e2e6ec;
+  --color-text: #1a1e27;
+  --color-text-muted: #58606d;
+  --color-primary: #2f5bd0;
+  --color-primary-hover: #244aac;
+  /* Bleu secondaire fourni par Rudy */
+  --color-secondary: #1d488f;
+  --color-secondary-hover: #163a73;
+  --header-bg: rgba(245, 247, 251, 0.8);
+  --shadow: 0 8px 30px rgba(20, 35, 70, 0.08);
+}
+
+/* ---------- Thème sombre ---------- */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg: #0f1115;
+  --color-surface: #171a21;
+  --color-border: #262b36;
+  --color-text: #e6e8ec;
+  --color-text-muted: #9aa2b1;
+  --color-primary: #6c8cff;
+  --color-primary-hover: #5577f5;
+  /* Bleu secondaire fourni par Rudy */
+  --color-secondary: #1d488f;
+  --color-secondary-hover: #2a5aa8;
+  --header-bg: rgba(15, 17, 21, 0.8);
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* ---------- Variables indépendantes du thème ---------- */
+:root {
+  /* Espacements — valeurs mobile-first (petits écrans d'abord) */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 3rem;
+
+  /* Divers */
+  --radius: 12px;
+  --max-width: 960px;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* À partir de la tablette, on aère la mise en page */
+@media (min-width: 768px) {
+  :root {
+    --space-lg: 2rem;
+    --space-xl: 5rem;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Accessibilité : focus clavier visible sur tous les éléments interactifs */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Respect des préférences de mouvement réduit */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
