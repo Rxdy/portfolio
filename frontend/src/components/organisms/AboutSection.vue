@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import BaseHeading from '@/components/atoms/BaseHeading.vue'
 import SkillList from '@/components/molecules/SkillList.vue'
+
+const { t } = useI18n()
 
 // Les compétences les plus accrocheuses — le détail complet est sur /competences
 const topSkills = ['Vue.js', 'TypeScript', 'Node.js', 'Fastify', 'PostgreSQL', 'Docker']
@@ -8,7 +11,7 @@ const topSkills = ['Vue.js', 'TypeScript', 'Node.js', 'Fastify', 'PostgreSQL', '
 
 <template>
   <section id="about" class="about">
-    <BaseHeading :level="2">À propos</BaseHeading>
+    <BaseHeading :level="2">{{ t('about.title') }}</BaseHeading>
     <p class="about__text">
       Ce qui me fait vibrer, c'est de créer. Depuis des années, je lance des projets pour le plaisir
       d'apprendre et de construire : je pars d'une idée, je la prototype, et je l'améliore jusqu'à ce
@@ -22,13 +25,13 @@ const topSkills = ['Vue.js', 'TypeScript', 'Node.js', 'Fastify', 'PostgreSQL', '
       puis en alternance pour la Licence et le Master.
     </p>
 
-    <BaseHeading :level="3">Mes technos de prédilection</BaseHeading>
+    <BaseHeading :level="3">{{ t('about.stackTitle') }}</BaseHeading>
     <SkillList :skills="topSkills" />
     <RouterLink class="about__link" :to="{ name: 'skills' }">
-      Voir toutes mes compétences en détail →
+      {{ t('about.skillsLink') }}
     </RouterLink>
 
-    <BaseHeading :level="3">Langues</BaseHeading>
+    <BaseHeading :level="3">{{ t('about.languagesTitle') }}</BaseHeading>
     <p class="about__text">
       Français — langue maternelle. Anglais technique : à l'aise pour lire de la documentation et
       travailler au quotidien.

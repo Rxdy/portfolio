@@ -1,15 +1,17 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { RiSunLine, RiMoonClearLine } from '@remixicon/vue'
 import { useTheme } from '@/composables/useTheme'
 
 const { theme, toggle } = useTheme()
+const { t } = useI18n()
 </script>
 
 <template>
   <button
     class="theme-toggle"
     type="button"
-    :aria-label="theme === 'dark' ? 'Passer en mode clair' : 'Passer en mode sombre'"
+    :aria-label="theme === 'dark' ? t('theme.toLight') : t('theme.toDark')"
     @click="toggle"
   >
     <component :is="theme === 'dark' ? RiSunLine : RiMoonClearLine" class="theme-toggle__icon" />

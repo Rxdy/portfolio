@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
 
@@ -43,33 +46,35 @@ async function submit() {
 <template>
   <form class="contact-form" novalidate @submit.prevent="submit">
     <div class="contact-form__field">
-      <label for="cf-name">Nom</label>
-      <input id="cf-name" v-model="name" type="text" autocomplete="name" required />
+      <label for="cf-name">{{ t('contactForm.name') }} <span class="contact-form__required" aria-hidden="true">*</span></label>
+      <input id="cf-name" v-model="name" type="text" autocomplete="name" required aria-required="true" />
     </div>
 
     <div class="contact-form__field">
-      <label for="cf-email">Email</label>
-      <input id="cf-email" v-model="email" type="email" autocomplete="email" required />
+      <label for="cf-email">{{ t('contactForm.email') }} <span class="contact-form__required" aria-hidden="true">*</span></label>
+      <input id="cf-email" v-model="email" type="email" autocomplete="email" required aria-required="true" />
     </div>
 
     <div class="contact-form__field">
-      <label for="cf-message">Message</label>
-      <textarea id="cf-message" v-model="message" rows="5" required></textarea>
+      <label for="cf-message">{{ t('contactForm.message') }} <span class="contact-form__required" aria-hidden="true">*</span></label>
+      <textarea id="cf-message" v-model="message" rows="5" required aria-required="true"></textarea>
     </div>
+
+    <p class="contact-form__hint">{{ t('contactForm.required') }}</p>
 
     <button class="contact-form__submit" type="submit" :disabled="submitDisabled">
-      {{ status === 'sending' ? 'Envoi…' : 'Envoyer' }}
+      {{ status === 'sending' ? t('contactForm.sending') : t('contactForm.send') }}
     </button>
 
     <p v-if="status === 'success'" class="contact-form__msg contact-form__msg--ok" role="status">
-      Merci ! Ton message a bien été envoyé, je te réponds vite.
+      {{ t('contactForm.success') }}
     </p>
     <p
       v-else-if="status === 'error'"
       class="contact-form__msg contact-form__msg--ko"
       role="alert"
     >
-      Une erreur est survenue. Réessaie dans un instant.
+      {{ t('contactForm.error') }}
     </p>
   </form>
 </template>
@@ -80,7 +85,6 @@ async function submit() {
   flex-direction: column;
   gap: var(--space-md);
   width: 100%;
-  max-width: 34rem;
 }
 
 .contact-form__field {
@@ -92,6 +96,15 @@ async function submit() {
 .contact-form__field label {
   font-weight: 600;
   font-size: 0.9rem;
+}
+
+.contact-form__required {
+  color: var(--color-primary);
+}
+
+.contact-form__hint {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
 }
 
 .contact-form__field input,

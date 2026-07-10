@@ -1,36 +1,25 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import BaseHeading from '@/components/atoms/BaseHeading.vue'
 import EntityCard from '@/components/molecules/EntityCard.vue'
+import { techExperiences } from '@/data/experience'
 
-interface Company {
-  name: string
-  subtitle: string
-  description: string
-  link?: string
-  linkLabel?: string
-}
+const { t } = useI18n()
 
-const companies: Company[] = [
-  {
-    name: 'Def Systèmes — Saint-Étienne',
-    subtitle: 'Alternance · Développeur · depuis 2024',
-    description:
-      "Mon entreprise d'alternance pour la Licence puis le Master, après un stage d'un mois en juillet 2024. J'y développe sur des projets réels, dans un cadre professionnel.",
-    link: 'https://def-systemes.fr',
-    linkLabel: 'def-systemes.fr',
-  },
-  {
-    name: 'CAVEM — Saint-Raphaël',
-    subtitle: 'Stages · Service informatique · 2017 & 2018',
-    description:
-      "Communauté d'Agglomération Var Estérel Méditerranée. Deux stages au sein du service informatique pendant mon BTS SIO.",
-  },
-]
+// « Mes entreprises » = expériences en contexte tech (source unique partagée avec le CV).
+const companies = techExperiences.map((exp) => ({
+  name: exp.org,
+  subtitle: `${exp.role} · ${exp.period}`,
+  description: exp.description,
+  logo: exp.logo,
+  link: exp.link,
+  linkLabel: exp.linkLabel,
+}))
 </script>
 
 <template>
   <section id="companies" class="companies">
-    <BaseHeading :level="2">Mes entreprises</BaseHeading>
+    <BaseHeading :level="2">{{ t('companies.title') }}</BaseHeading>
     <div class="companies__grid">
       <EntityCard
         v-for="company in companies"
@@ -38,6 +27,7 @@ const companies: Company[] = [
         :name="company.name"
         :subtitle="company.subtitle"
         :description="company.description"
+        :logo="company.logo"
         :link="company.link"
         :link-label="company.linkLabel"
       />
@@ -50,13 +40,13 @@ const companies: Company[] = [
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
-  padding: var(--space-xl) 0;
+  padding-top: var(--space-lg);
   border-top: 1px solid var(--color-border);
 }
 
 .companies__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: var(--space-lg);
 }
 </style>

@@ -8,6 +8,8 @@ const props = defineProps<{
   label: string
   /** Niveau de maîtrise */
   level: SkillLevel
+  /** Noms des projets (sur le portfolio) où cette compétence a été appliquée */
+  projects?: string[]
 }>()
 
 // Correspondance niveau → remplissage de la barre
@@ -33,6 +35,17 @@ onMounted(() => {
     <div class="skill-bar__head">
       <span class="skill-bar__label">{{ label }}</span>
       <span class="skill-bar__value">{{ level }}</span>
+    </div>
+    <div v-if="projects?.length" class="skill-bar__tags">
+      <RouterLink
+        v-for="project in projects"
+        :key="project"
+        class="skill-bar__tag"
+        :to="{ name: 'projects' }"
+        :title="`Compétence appliquée sur ${project} — projet disponible sur le portfolio`"
+      >
+        ↗ {{ project }}
+      </RouterLink>
     </div>
     <div class="skill-bar__track">
       <div
@@ -69,6 +82,30 @@ onMounted(() => {
   color: var(--color-text-muted);
   font-size: 0.85rem;
   font-variant-numeric: tabular-nums;
+}
+
+.skill-bar__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.skill-bar__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.08rem 0.45rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-primary);
+  font-size: 0.72rem;
+  font-weight: 600;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.skill-bar__tag:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-bg);
 }
 
 .skill-bar__track {
