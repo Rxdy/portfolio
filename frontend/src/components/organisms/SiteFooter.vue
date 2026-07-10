@@ -1,37 +1,24 @@
 <script setup lang="ts">
-import type { RouteLocationRaw } from 'vue-router'
-import { RiGithubLine, RiMapPinLine } from '@remixicon/vue'
+import { useI18n } from 'vue-i18n'
+import { RiMapPinLine, RiArrowUpLine } from '@remixicon/vue'
 
+const { t } = useI18n()
 const year = new Date().getFullYear()
 
-interface FooterLink {
-  label: string
-  to: RouteLocationRaw
-}
-
-const navLinks: FooterLink[] = [
-  { label: 'À propos', to: { path: '/', hash: '#about' } },
-  { label: 'Expérience', to: { path: '/', hash: '#experience' } },
-  { label: 'Parcours', to: { path: '/', hash: '#education' } },
-  { label: 'Écoles & entreprises', to: { name: 'education-detail' } },
-  { label: 'Savoir-faire', to: { path: '/', hash: '#expertise' } },
-  { label: 'Collaboration', to: { path: '/', hash: '#collaboration' } },
-  { label: 'Compétences', to: { name: 'skills' } },
-  { label: 'Mon parcours', to: { name: 'journey' } },
-  { label: 'Contact', to: { path: '/', hash: '#contact' } },
-]
-
 const contacts = [
-  { icon: RiGithubLine, label: 'github.com/rxdy', href: 'https://github.com/rxdy' },
   { icon: RiMapPinLine, label: 'Saint-Just Saint-Rambert (42)' },
 ]
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 </script>
 
 <template>
   <footer class="site-footer">
     <div class="site-footer__inner">
       <div class="site-footer__col site-footer__brand-col">
-        <RouterLink class="site-footer__brand" :to="{ path: '/', hash: '#top' }">
+        <RouterLink class="site-footer__brand" :to="{ name: 'home' }">
           rxdy<span>.fr</span>
         </RouterLink>
         <p class="site-footer__tagline">
@@ -39,33 +26,39 @@ const contacts = [
         </p>
       </div>
 
-      <nav class="site-footer__col" aria-label="Navigation du pied de page">
-        <h2 class="site-footer__title">Navigation</h2>
-        <RouterLink
-          v-for="link in navLinks"
-          :key="link.label"
-          class="site-footer__link"
-          :to="link.to"
-        >
-          {{ link.label }}
-        </RouterLink>
-      </nav>
-
       <div class="site-footer__col">
-        <h2 class="site-footer__title">Contact</h2>
+        <h2 class="site-footer__title">{{ t('footer.contactTitle') }}</h2>
         <div v-for="item in contacts" :key="item.label" class="site-footer__contact">
           <component :is="item.icon" class="site-footer__icon" />
-          <a v-if="item.href" :href="item.href" target="_blank" rel="noopener">{{
-            item.label
-          }}</a>
-          <span v-else>{{ item.label }}</span>
+          <span>{{ item.label }}</span>
         </div>
+        <RouterLink class="site-footer__link" :to="{ name: 'contact' }">
+          {{ t('footer.contactLink') }}
+        </RouterLink>
+        <RouterLink class="site-footer__link" :to="{ name: 'cv' }">
+          {{ t('footer.cvLink') }}
+        </RouterLink>
+      </div>
+
+      <div class="site-footer__col">
+        <h2 class="site-footer__title">{{ t('footer.legalTitle') }}</h2>
+        <RouterLink class="site-footer__link" :to="{ name: 'legal' }">
+          {{ t('footer.legalLink') }}
+        </RouterLink>
+      </div>
+
+      <div class="site-footer__col">
+        <h2 class="site-footer__title">{{ t('footer.stackTitle') }}</h2>
+        <p class="site-footer__stack">Vue 3 · TypeScript · Vite · Docker</p>
       </div>
     </div>
 
-    <p class="site-footer__copyright">
-      © {{ year }} Rudy Alves — Construit avec Vue &amp; TypeScript.
-    </p>
+    <div class="site-footer__bottom">
+      <p class="site-footer__copyright">© {{ year }} Rudy Alves</p>
+      <button class="site-footer__top" type="button" @click="scrollToTop">
+        <RiArrowUpLine class="site-footer__top-icon" /> {{ t('footer.top') }}
+      </button>
+    </div>
   </footer>
 </template>
 
@@ -114,16 +107,6 @@ const contacts = [
   font-weight: 600;
 }
 
-.site-footer__link {
-  color: var(--color-text-muted);
-  font-size: 0.95rem;
-  transition: color 0.18s ease;
-}
-
-.site-footer__link:hover {
-  color: var(--color-primary);
-}
-
 .site-footer__contact {
   display: flex;
   align-items: center;
@@ -132,8 +115,20 @@ const contacts = [
   font-size: 0.95rem;
 }
 
-.site-footer__contact a:hover {
+.site-footer__link {
   color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  width: fit-content;
+}
+
+.site-footer__link:hover {
+  color: var(--color-primary-hover);
+}
+
+.site-footer__stack {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
 }
 
 .site-footer__icon {
@@ -144,20 +139,60 @@ const contacts = [
   flex-shrink: 0;
 }
 
-.site-footer__copyright {
+.site-footer__bottom {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: var(--space-md);
   border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
   color: var(--color-text-muted);
   font-size: 0.85rem;
+}
+
+.site-footer__copyright {
   text-align: center;
 }
 
-@media (min-width: 700px) {
+.site-footer__top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border: none;
+  background: none;
+  color: var(--color-text-muted);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color 0.18s ease;
+}
+
+.site-footer__top:hover {
+  color: var(--color-primary);
+}
+
+.site-footer__top-icon {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+}
+
+@media (min-width: 640px) {
   .site-footer__inner {
-    grid-template-columns: 1.4fr 1fr 1.2fr;
-    gap: var(--space-xl);
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .site-footer__inner {
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  }
+
+  .site-footer__bottom {
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 </style>

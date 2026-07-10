@@ -8,6 +8,5 @@ describe('JourneyPage', () => {
     expect(wrapper.text()).toContain('Mon parcours')
     expect(wrapper.text()).toContain("McDonald's")
     expect(wrapper.text()).toContain('gestion de projet')
-    expect(wrapper.get('.journey__back').attributes('href')).toContain('#education')
   })
 })

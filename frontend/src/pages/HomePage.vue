@@ -3,9 +3,8 @@ import HeroSection from '@/components/organisms/HeroSection.vue'
 import AboutSection from '@/components/organisms/AboutSection.vue'
 import ExperienceSection from '@/components/organisms/ExperienceSection.vue'
 import EducationSection from '@/components/organisms/EducationSection.vue'
+import JourneyTeaser from '@/components/organisms/JourneyTeaser.vue'
 import ExpertiseSection from '@/components/organisms/ExpertiseSection.vue'
-import CollaborationSection from '@/components/organisms/CollaborationSection.vue'
-import ContactSection from '@/components/organisms/ContactSection.vue'
 </script>
 
 <template>
@@ -14,9 +13,8 @@ import ContactSection from '@/components/organisms/ContactSection.vue'
     <AboutSection />
     <ExperienceSection />
     <EducationSection />
+    <JourneyTeaser />
     <ExpertiseSection />
-    <CollaborationSection />
-    <ContactSection />
   </main>
 </template>
 

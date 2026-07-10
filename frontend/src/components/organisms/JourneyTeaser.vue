@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import BaseHeading from '@/components/atoms/BaseHeading.vue'
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -10,7 +13,7 @@ import BaseHeading from '@/components/atoms/BaseHeading.vue'
         Entre mes diplômes, il y a eu la vie active et la création d'une famille. Une étape que
         j'assume et qui m'a aussi beaucoup appris.
       </p>
-      <span class="journey-teaser__more">En savoir plus →</span>
+      <span class="journey-teaser__more">{{ t('common.readMore') }}</span>
     </div>
   </RouterLink>
 </template>
@@ -18,6 +21,7 @@ import BaseHeading from '@/components/atoms/BaseHeading.vue'
 <style scoped>
 .journey-teaser {
   display: block;
+  margin-bottom: var(--space-xl);
   padding: var(--space-lg);
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
