@@ -26,9 +26,10 @@
   --color-text-muted: #9aa2b1;
   --color-primary: #6c8cff;
   --color-primary-hover: #5577f5;
-  /* Bleu secondaire fourni par Rudy */
-  --color-secondary: #1d488f;
-  --color-secondary-hover: #2a5aa8;
+  /* Bleu secondaire de Rudy (#1d488f en clair) — éclairci en sombre pour le contraste
+     (≈3.2:1 vs le fond, seuil UI 3:1 ; texte blanc dessus ≈5.8:1 = AA). */
+  --color-secondary: #3a63b0;
+  --color-secondary-hover: #4a74c4;
   --header-bg: rgba(15, 17, 21, 0.8);
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
 }
@@ -52,7 +53,7 @@
 @media (min-width: 768px) {
   :root {
     --space-lg: 2rem;
-    --space-xl: 5rem;
+    --space-xl: 3.5rem;
   }
 }
 
@@ -100,5 +101,13 @@ img {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Impression / export PDF : on retire le chrome du site (en-tête, pied de page) */
+@media print {
+  .site-header,
+  .site-footer {
+    display: none !important;
   }
 }
