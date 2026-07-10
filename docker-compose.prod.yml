@@ -1,0 +1,9 @@
+services:
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: portfolio-prod
+    ports:
+      - "8099:80"
+    restart: unless-stopped
