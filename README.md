@@ -24,11 +24,13 @@ npm run coverage     # tests + couverture (seuils à 100 %)
 
 ```
 portfolio/
-├── docker-compose.yml
+├── docker-compose.yml           # dev (hot reload)
+├── docker-compose.prod.yml      # prod (nginx)
 ├── .github/workflows/ci.yml     # pipeline CI (type-check, tests, build)
-├── RECAP.md                     # infos attendues + état
-├── REVUE-CRITIQUE.md            # revue critique
 └── frontend/                    # application Vue (un dossier par service)
+    ├── Dockerfile               # image de dev
+    ├── Dockerfile.prod          # image de prod (build → nginx + fallback SPA)
+    ├── nginx.conf               # config nginx (fallback SPA)
     └── src/
         ├── components/{atoms,molecules,organisms}
         ├── pages/               # HomePage, SkillsPage, JourneyPage, EducationDetailPage
@@ -36,6 +38,16 @@ portfolio/
         ├── router/
         └── test/                # helpers de test
 ```
+
+> Les dossiers `projet/` (suivi, audits) et `agent/` (règles de l'agent) sont **gitignorés** : suivi local, non publié.
+
+## 🚢 Déploiement (production)
+
+```bash
+docker compose -f docker-compose.prod.yml up -d --build   # build + nginx (http://localhost:8099)
+```
+
+L'image de prod construit l'app puis la sert via **nginx** avec un **fallback SPA** (`try_files … /index.html`) : les routes comme `/competences` fonctionnent au rafraîchissement. Les balises **Open Graph** et l'image `og-image.png` assurent un bon aperçu au partage.
 
 ## 🌱 Workflow Git
 
