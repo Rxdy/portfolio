@@ -1,0 +1,143 @@
+import type { SkillLevel } from '@/components/molecules/SkillBar.vue'
+
+export interface Skill {
+  label: string
+  level: SkillLevel
+}
+export interface SkillGroup {
+  title: string
+  skills: Skill[]
+}
+
+// Compétences groupées — source unique partagée entre la page /competences et le CV.
+// NOTE(Rudy) : niveaux à ajuster librement (Notions / Intermédiaire / Confirmé).
+export const skillGroups: SkillGroup[] = [
+  {
+    title: 'Langages & paradigmes',
+    skills: [
+      { label: 'TypeScript', level: 'Confirmé' },
+      { label: 'JavaScript', level: 'Confirmé' },
+      { label: 'Programmation orientée objet', level: 'Confirmé' },
+      { label: 'SQL', level: 'Confirmé' },
+      { label: 'Expressions régulières (regex)', level: 'Confirmé' },
+      { label: 'JSON / YAML', level: 'Confirmé' },
+      { label: 'Python', level: 'Intermédiaire' },
+      { label: 'PL/pgSQL (procédures stockées)', level: 'Intermédiaire' },
+      { label: 'PHP', level: 'Notions' },
+      { label: 'C#', level: 'Intermédiaire' },
+      { label: 'C / C++', level: 'Notions' },
+      { label: 'Rust', level: 'Notions' },
+      { label: 'Ruby', level: 'Notions' },
+    ],
+  },
+  {
+    title: 'Front-end',
+    skills: [
+      { label: 'Vue.js', level: 'Confirmé' },
+      { label: 'HTML / CSS', level: 'Confirmé' },
+      { label: 'Vue Router', level: 'Confirmé' },
+      { label: 'Axios', level: 'Confirmé' },
+      { label: 'Pinia', level: 'Confirmé' },
+      { label: 'Sass', level: 'Confirmé' },
+      { label: 'Vite', level: 'Confirmé' },
+      { label: 'Design responsive / mobile-first', level: 'Confirmé' },
+      { label: 'PWA (Progressive Web App)', level: 'Confirmé' },
+      { label: 'Tailwind CSS', level: 'Intermédiaire' },
+      { label: 'Accessibilité (RGAA / WCAG)', level: 'Intermédiaire' },
+      { label: 'vue-i18n (internationalisation)', level: 'Intermédiaire' },
+      { label: '@vueuse/core', level: 'Intermédiaire' },
+    ],
+  },
+  {
+    title: 'Back-end & bases de données',
+    skills: [
+      { label: 'Node.js', level: 'Confirmé' },
+      { label: 'Fastify', level: 'Confirmé' },
+      { label: 'PostgreSQL', level: 'Confirmé' },
+      { label: 'Sequelize', level: 'Confirmé' },
+      { label: 'Express', level: 'Confirmé' },
+      { label: 'Bun', level: 'Confirmé' },
+      { label: 'Swagger / OpenAPI', level: 'Confirmé' },
+      { label: 'Migrations de bases', level: 'Confirmé' },
+      { label: 'Conception d’API REST', level: 'Confirmé' },
+      { label: 'MySQL', level: 'Intermédiaire' },
+      { label: 'SQL Server', level: 'Intermédiaire' },
+      { label: 'WebSocket', level: 'Intermédiaire' },
+      { label: 'Réplication de bases', level: 'Intermédiaire' },
+      { label: 'Prisma', level: 'Intermédiaire' },
+      { label: 'Redis (cache / broker)', level: 'Intermédiaire' },
+      { label: 'AdonisJS', level: 'Intermédiaire' },
+      { label: 'Nodemailer (envoi d’emails)', level: 'Intermédiaire' },
+      { label: 'FastAPI', level: 'Confirmé' },
+      { label: 'Django', level: 'Confirmé' },
+      { label: 'MongoDB', level: 'Notions' },
+      { label: 'GraphQL', level: 'Notions' },
+    ],
+  },
+  {
+    title: 'Systèmes, infra & réseau',
+    skills: [
+      { label: 'Docker', level: 'Confirmé' },
+      { label: 'Docker Compose', level: 'Confirmé' },
+      { label: 'Linux / terminal', level: 'Confirmé' },
+      { label: 'Traefik', level: 'Confirmé' },
+      { label: 'nginx', level: 'Intermédiaire' },
+      { label: 'Terraform', level: 'Intermédiaire' },
+      { label: 'Scalabilité (verticale & horizontale)', level: 'Intermédiaire' },
+      { label: 'Mosquitto (broker MQTT)', level: 'Intermédiaire' },
+      { label: 'Watchtower', level: 'Intermédiaire' },
+      { label: 'VMware / virtualisation', level: 'Intermédiaire' },
+      { label: 'DNS & nom de domaine', level: 'Intermédiaire' },
+      { label: 'SSL/TLS & Let’s Encrypt', level: 'Confirmé' },
+      { label: 'Raspberry Pi', level: 'Intermédiaire' },
+      { label: 'Tomcat', level: 'Intermédiaire' },
+      { label: 'Arduino', level: 'Intermédiaire' },
+      { label: 'WAMP', level: 'Intermédiaire' },
+      { label: 'Clusters', level: 'Notions' },
+      { label: 'Kubernetes', level: 'Notions' },
+      { label: 'Ansible', level: 'Notions' },
+    ],
+  },
+  {
+    title: 'Protocoles & sécurité',
+    skills: [
+      { label: 'HTTP', level: 'Confirmé' },
+      { label: 'HTTPS / TLS', level: 'Confirmé' },
+      { label: 'Hachage', level: 'Confirmé' },
+      { label: 'Chiffrement', level: 'Confirmé' },
+      { label: 'Gestion des mots de passe', level: 'Confirmé' },
+      { label: 'Tokens & JWT', level: 'Confirmé' },
+      { label: 'Rate limiting', level: 'Confirmé' },
+      { label: 'Helmet (en-têtes de sécurité)', level: 'Confirmé' },
+      { label: 'CORS', level: 'Confirmé' },
+      { label: 'Sécurité by design', level: 'Intermédiaire' },
+      { label: '2FA / TOTP', level: 'Intermédiaire' },
+      { label: 'OWASP Top 10', level: 'Intermédiaire' },
+      { label: 'SSH (clés, tunnels)', level: 'Intermédiaire' },
+      { label: 'MQTT', level: 'Intermédiaire' },
+      { label: 'Gestion de certificats', level: 'Intermédiaire' },
+      { label: 'MLLP', level: 'Notions' },
+      { label: 'VPN', level: 'Notions' },
+    ],
+  },
+  {
+    title: 'Outils & méthodes',
+    skills: [
+      { label: 'Git / GitHub', level: 'Confirmé' },
+      { label: 'Markdown', level: 'Confirmé' },
+      { label: 'Tests (unit. / intégration / E2E)', level: 'Confirmé' },
+      { label: 'Makefile', level: 'Confirmé' },
+      { label: 'ESLint / Prettier', level: 'Confirmé' },
+      { label: 'PlantUML', level: 'Intermédiaire' },
+      { label: 'UML / Merise (MCD, MLD)', level: 'Intermédiaire' },
+      { label: 'Marp', level: 'Intermédiaire' },
+      { label: 'CI/CD', level: 'Intermédiaire' },
+      { label: 'GitHub Actions', level: 'Intermédiaire' },
+      { label: 'Celery / Redis (workers)', level: 'Intermédiaire' },
+      { label: 'Postman / Insomnia', level: 'Intermédiaire' },
+      { label: 'Kanban', level: 'Intermédiaire' },
+      { label: 'Cahier des charges', level: 'Intermédiaire' },
+      { label: 'Draw.io / diagrammes', level: 'Intermédiaire' },
+    ],
+  },
+]
