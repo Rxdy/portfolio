@@ -14,6 +14,11 @@ export function makeRouter(): Router {
       { path: '/competences', name: 'skills', component: Blank },
       { path: '/ecoles-entreprises', name: 'education-detail', component: Blank },
       { path: '/mon-parcours', name: 'journey', component: Blank },
+      { path: '/cv', name: 'cv', component: Blank },
+      { path: '/projets', name: 'projects', component: Blank },
+      { path: '/collaboration', name: 'collaboration', component: Blank },
+      { path: '/contact', name: 'contact', component: Blank },
+      { path: '/mentions-legales', name: 'legal', component: Blank },
     ],
   })
 }

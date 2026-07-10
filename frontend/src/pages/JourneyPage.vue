@@ -1,25 +1,20 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import BaseHeading from '@/components/atoms/BaseHeading.vue'
 import TimelineItem from '@/components/molecules/TimelineItem.vue'
+
+const { t } = useI18n()
 </script>
 
 <template>
   <main class="journey page">
-    <RouterLink class="journey__back" :to="{ path: '/', hash: '#education' }">
-      ← Retour à l'accueil
-    </RouterLink>
-
     <header class="journey__header">
-      <BaseHeading :level="1">Mon parcours</BaseHeading>
-      <p class="journey__lead">
-        Mon chemin n'a pas été une ligne droite, et j'en suis fier. Entre mes études, il y a eu une
-        étape de vie importante — et des expériences qui m'ont construit autrement que sur les bancs
-        de l'école.
-      </p>
+      <BaseHeading :level="1">{{ t('journey.title') }}</BaseHeading>
+      <p class="journey__lead">{{ t('journey.lead') }}</p>
     </header>
 
     <section class="journey__section">
-      <BaseHeading :level="2">La vie active &amp; la famille</BaseHeading>
+      <BaseHeading :level="2">{{ t('journey.section1Title') }}</BaseHeading>
       <p class="journey__text">
         Après mon BTS, ma vie a pris un tournant : la création de ma famille. Il a fallu entrer dans
         la vie active, assumer mes responsabilités, et mettre les études en pause. Ce n'est pas un
@@ -29,7 +24,7 @@ import TimelineItem from '@/components/molecules/TimelineItem.vue'
     </section>
 
     <section class="journey__section">
-      <BaseHeading :level="2">L'expérience McDonald's</BaseHeading>
+      <BaseHeading :level="2">{{ t('journey.section2Title') }}</BaseHeading>
       <p class="journey__text">
         Chez McDonald's, j'ai d'abord travaillé comme équipier polyvalent sur deux contrats étudiants
         pendant mon BTS. Après l'arrêt de mes études en 2018, j'y suis revenu pour de bon — et j'y ai
@@ -52,7 +47,7 @@ import TimelineItem from '@/components/molecules/TimelineItem.vue'
     </section>
 
     <section class="journey__section">
-      <BaseHeading :level="2">Le tournant vers la gestion de projet</BaseHeading>
+      <BaseHeading :level="2">{{ t('journey.section3Title') }}</BaseHeading>
       <p class="journey__text">
         C'est cette période, et surtout le rôle de manager, qui a été un vrai tournant. La gestion
         humaine, la coordination d'une équipe et la « préparation du terrain » avant chaque service
@@ -63,8 +58,8 @@ import TimelineItem from '@/components/molecules/TimelineItem.vue'
     </section>
 
     <div class="journey__cta">
-      <RouterLink class="journey__cta-link" :to="{ path: '/', hash: '#contact' }">
-        Me contacter
+      <RouterLink class="journey__cta-link" :to="{ name: 'contact' }">
+        {{ t('journey.cta') }}
       </RouterLink>
     </div>
   </main>
@@ -83,16 +78,6 @@ import TimelineItem from '@/components/molecules/TimelineItem.vue'
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
-}
-
-.journey__back {
-  color: var(--color-text-muted);
-  font-weight: 500;
-  transition: color 0.18s ease;
-}
-
-.journey__back:hover {
-  color: var(--color-primary);
 }
 
 .journey__header {
