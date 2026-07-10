@@ -1,18 +1,26 @@
 <script setup lang="ts">
+import { RouterLink, type RouteLocationRaw } from 'vue-router'
+
 withDefaults(
   defineProps<{
     /** Style visuel du bouton */
     variant?: 'primary' | 'secondary' | 'ghost'
     /** Rend un <a> si href est fourni, sinon un <button> */
     href?: string
+    /** Rend un <RouterLink> pour une navigation interne (prioritaire sur href) */
+    to?: RouteLocationRaw
   }>(),
   { variant: 'primary' },
 )
 </script>
 
 <template>
+  <RouterLink v-if="to" :to="to" class="base-button" :class="`base-button--${variant}`">
+    <slot />
+  </RouterLink>
   <component
     :is="href ? 'a' : 'button'"
+    v-else
     :href="href"
     class="base-button"
     :class="`base-button--${variant}`"

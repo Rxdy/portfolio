@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import BaseHeading from '@/components/atoms/BaseHeading.vue'
 import TimelineItem from '@/components/molecules/TimelineItem.vue'
+
+const { t } = useI18n()
 
 interface Experience {
   title: string
@@ -30,7 +33,7 @@ const experiences: Experience[] = [
 
 <template>
   <section id="experience" class="experience">
-    <BaseHeading :level="2">Expérience</BaseHeading>
+    <BaseHeading :level="2">{{ t('experience.title') }}</BaseHeading>
     <ul class="experience__timeline">
       <TimelineItem
         v-for="(experience, index) in experiences"
