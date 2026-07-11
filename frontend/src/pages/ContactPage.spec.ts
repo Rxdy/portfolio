@@ -12,6 +12,8 @@ describe('ContactPage', () => {
   it("n'expose ni email ni téléphone en clair", async () => {
     const wrapper = await mountWithRouter(ContactPage)
     expect(wrapper.text()).not.toContain('rudyalvs@gmail.com')
-    expect(wrapper.text()).not.toContain('06 52 68 60 13')
+    // Pattern plutôt qu'un numéro en dur : évite de committer le vrai numéro
+    // dans le code source tout en détectant n'importe quel numéro FR affiché.
+    expect(wrapper.text()).not.toMatch(/0\d(\s?\d{2}){4}/)
   })
 })

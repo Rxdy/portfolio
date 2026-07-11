@@ -9,8 +9,8 @@ export const profile = {
   birthDate: new Date(1997, 4, 12),
   location: 'Saint-Just Saint-Rambert (42)',
   drivingLicense: 'Permis B',
-  // Placeholder générique en attendant la vraie photo de profil de Rudy
-  photo: '/profile-placeholder.svg',
+  // Avatar utilisé en attendant une vraie photo de profil de Rudy
+  photo: '/people/rudy.jpg',
   // Affiché sur le CV téléchargeable, PAS en clair sur le site public
   email: 'rudyalvs@gmail.com',
   github: 'https://github.com/rxdy',

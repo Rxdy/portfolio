@@ -1,6 +1,8 @@
 # Portfolio — Rudy Alves (rxdy.fr)
 
-Portfolio personnel construit avec **Vue 3 + TypeScript + Vite**, conteneurisé avec **Docker** (hot reload), en **atomic design**, avec thème clair/sombre et une couverture de tests à **100 %**.
+Portfolio personnel construit avec **Vue 3 + TypeScript + Vite**, conteneurisé avec **Docker** (hot reload), en **atomic design**, avec thème clair/sombre, sélecteur de langue **FR/EN**, et une couverture de tests à **100 %**.
+
+Le contenu (profil, compétences, expériences, projets, diplômes) vit dans `frontend/src/data/` et sert à la fois les pages du site et le **CV généré depuis ces mêmes données** (page `/cv`, exporté en PDF via l'impression du navigateur) : une seule source à tenir à jour.
 
 ## 🚀 Démarrage (Docker)
 
@@ -33,10 +35,12 @@ portfolio/
     ├── nginx.conf               # config nginx (fallback SPA)
     └── src/
         ├── components/{atoms,molecules,organisms}
-        ├── pages/               # HomePage, SkillsPage, JourneyPage, EducationDetailPage
-        ├── composables/         # useTheme
+        ├── pages/               # Home, Skills, Projects, Collaboration, Contact, CV, Journey...
+        ├── data/                # source unique du contenu (site + CV)
+        ├── i18n/                # dictionnaires FR/EN (vue-i18n)
+        ├── composables/         # useTheme, useLocale
         ├── router/
-        └── test/                # helpers de test
+        └── test/                # helpers + setup de test
 ```
 
 > Les dossiers `projet/` (suivi, audits) et `agent/` (règles de l'agent) sont **gitignorés** : suivi local, non publié.
