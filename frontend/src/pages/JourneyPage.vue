@@ -32,10 +32,28 @@ const { t } = useI18n()
       </p>
       <ul class="journey__timeline">
         <TimelineItem
-          title="Manager"
+          title="Assistant de direction — NIV 4 échelon A"
           place="McDonald's"
-          period="Nov. 2018 — Juil. 2023"
-          description="Aboutissement de ma progression : équipier polyvalent, puis formateur, puis responsable de zone, et enfin manager. Encadrement d'équipe, formation, organisation du service et gestion des priorités en temps réel."
+          period="Juin 2022 — Juil. 2023"
+          description="Élaboration de plans d'action pour piloter la performance du restaurant."
+        />
+        <TimelineItem
+          title="Assistant direction"
+          place="McDonald's"
+          period="Août 2021 — Mai 2022"
+          description="Gestion des PLV et du nettoyage des cuves à huile, encadrement d'équipe au quotidien."
+        />
+        <TimelineItem
+          title="Responsable de zone"
+          place="McDonald's"
+          period="Sept. 2020 — Juil. 2021"
+          description="Responsable de zone et prise de shift, formation des salariés et gestion des ventes."
+        />
+        <TimelineItem
+          title="Formateur"
+          place="McDonald's"
+          period="Nov. 2018 — Août 2020"
+          description="Formation des nouveaux salariés et application des règles de sécurité."
         />
         <TimelineItem
           title="Équipier polyvalent"
