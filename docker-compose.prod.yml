@@ -1,5 +1,6 @@
 services:
   web:
+    image: ghcr.io/rxdy/portfolio-frontend:latest
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
@@ -11,6 +12,7 @@ services:
       - backend
 
   backend:
+    image: ghcr.io/rxdy/portfolio-backend:latest
     build:
       context: ./backend
       dockerfile: Dockerfile.prod

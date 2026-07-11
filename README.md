@@ -73,8 +73,15 @@ CONTACT_TO=rudyalvs@gmail.com
 
 ## 🚢 Déploiement (production)
 
+À chaque push sur `main`, la CI construit et pousse les images `ghcr.io/rxdy/portfolio-frontend` et `ghcr.io/rxdy/portfolio-backend` (tags `latest` + SHA du commit).
+
 ```bash
+# En local (build depuis les sources)
 docker compose -f docker-compose.prod.yml up -d --build   # build + nginx (http://localhost:8099)
+
+# Sur le serveur cible (Raspberry Pi…), en tirant les images déjà construites par la CI
+docker compose -f docker-compose.prod.yml pull
+docker compose -f docker-compose.prod.yml up -d
 ```
 
 L'image de prod construit l'app puis la sert via **nginx** avec un **fallback SPA** (`try_files … /index.html`) et relaie `/api/` vers le backend Fastify : les routes comme `/competences` fonctionnent au rafraîchissement, et le formulaire de contact passe par le même domaine. Les balises **Open Graph** et l'image `og-image.png` assurent un bon aperçu au partage.

@@ -64,3 +64,39 @@ jobs:
 
       - name: Build de production
         run: npm run build
+
+  build-and-push:
+    name: Build & push des images (GHCR)
+    runs-on: ubuntu-latest
+    needs: [quality-frontend, quality-backend]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      matrix:
+        service: [frontend, backend]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Connexion à GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Nom d'image (en minuscules)
+        id: image
+        run: echo "name=ghcr.io/$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')-${{ matrix.service }}" >> "$GITHUB_OUTPUT"
+
+      - name: Build et push
+        uses: docker/build-push-action@v6
+        with:
+          context: ./${{ matrix.service }}
+          file: ./${{ matrix.service }}/Dockerfile.prod
+          push: true
+          tags: |
+            ${{ steps.image.outputs.name }}:latest
+            ${{ steps.image.outputs.name }}:${{ github.sha }}
