@@ -13,3 +13,25 @@ services:
       # Nécessaire pour que le HMR de Vite fonctionne dans Docker
       - CHOKIDAR_USEPOLLING=true
     command: npm run dev
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    container_name: portfolio-backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - PORT=3000
+      - ALLOWED_ORIGIN=http://localhost:5173
+      - SMTP_HOST=${SMTP_HOST:-}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_SECURE=${SMTP_SECURE:-false}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASS=${SMTP_PASS:-}
+      - SMTP_FROM=${SMTP_FROM:-}
+      - CONTACT_TO=${CONTACT_TO:-rudyalvs@gmail.com}
+    command: npm run dev

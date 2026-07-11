@@ -18,6 +18,13 @@ export default defineConfig({
       // Le polling est indispensable au hot reload via un volume Docker
       usePolling: true,
     },
+    proxy: {
+      // Relaie vers le service backend (nom résolu via le réseau Docker Compose)
+      '/api': {
+        target: 'http://backend:3000',
+        changeOrigin: true,
+      },
+    },
   },
   test: {
     globals: true,
