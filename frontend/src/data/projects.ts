@@ -30,8 +30,8 @@ export const projects: Project[] = [
     name: 'rxdy.fr',
     tagline: 'Le site que tu es en train de visiter',
     description:
-      "Ce portfolio lui-même : contenu centralisé dans une source unique de données, réutilisée à la fois par les pages du site et pour générer le CV téléchargeable. Sélecteur de langue FR/EN, thème clair/sombre, accessibilité (RGAA/WCAG). Conteneurisé avec Docker (dev en hot-reload, prod via nginx avec fallback SPA), CI GitHub Actions, couverture de tests verrouillée à 100 %.",
-    stack: ['Vue.js', 'TypeScript', 'Vite', 'vue-i18n', 'Docker'],
+      "Ce portfolio lui-même : contenu centralisé dans une source unique de données, réutilisée à la fois par les pages du site et pour générer le CV téléchargeable. Sélecteur de langue FR/EN, thème clair/sombre, accessibilité (RGAA/WCAG). Backend Fastify dédié pour le formulaire de contact (envoi d'email via SMTP, validation, rate limiting). Conteneurisé avec Docker (dev en hot-reload, prod via nginx avec fallback SPA), CI GitHub Actions, couverture de tests verrouillée à 100 % sur les deux services.",
+    stack: ['Vue.js', 'TypeScript', 'Vite', 'vue-i18n', 'Fastify', 'Node.js', 'Docker'],
     role: 'Projet personnel · tu es dessus en ce moment',
     // Intitulés EXACTS présents dans skills.ts
     skills: [
@@ -43,6 +43,14 @@ export const projects: Project[] = [
       'HTML / CSS',
       'Design responsive / mobile-first',
       'Accessibilité (RGAA / WCAG)',
+      'Node.js',
+      'Fastify',
+      'Conception d’API REST',
+      'HTTP',
+      'Nodemailer (envoi d’emails)',
+      'CORS',
+      'Rate limiting',
+      'Helmet (en-têtes de sécurité)',
       'Docker',
       'Docker Compose',
       'nginx',
