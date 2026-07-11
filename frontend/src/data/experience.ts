@@ -33,12 +33,11 @@ export const experiences: Experience[] = [
     category: 'tech',
   },
   {
-    // ⚠️ PROVISOIRE — détails (postes/dates/missions) à confirmer par Rudy (cf. projet/AVANCEMENT.md)
-    role: 'Manager (équipier → formateur → responsable de zone → manager)',
-    org: "McDonald's",
+    role: 'Assistant de direction (NIV 4 échelon A)',
+    org: "McDonald's — La Fouillouse",
     period: 'Nov. 2018 — Juil. 2023',
     description:
-      "Progression complète jusqu'au poste de manager : encadrement d'équipe, formation, organisation du service et gestion des priorités en temps réel. Une expérience humaine et opérationnelle qui nourrit aujourd'hui ma vision de la gestion de projet.",
+      "CDI avec une progression complète : formateur, puis responsable de zone, assistant direction, et enfin assistant de direction (niveau 4, échelon A). Formation des équipes, gestion des ventes et des plannings, élaboration de plans d'action pour piloter la performance du restaurant. Une expérience humaine et opérationnelle qui nourrit aujourd'hui ma vision de la gestion de projet.",
     category: 'other',
   },
 ]
