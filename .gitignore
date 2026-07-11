@@ -6,6 +6,7 @@ coverage
 .DS_Store
 *.log
 .vite
+.env
 
 # Suivi local — non publié (gestion de projet + règles de l'agent)
 projet/
