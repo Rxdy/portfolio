@@ -27,6 +27,32 @@ export const projectsOrg = {
 // Projets — source unique (section d'accueil, page /projets, CV).
 export const projects: Project[] = [
   {
+    name: 'rxdy.fr',
+    tagline: 'Le site que tu es en train de visiter',
+    description:
+      "Ce portfolio lui-même : contenu centralisé dans une source unique de données, réutilisée à la fois par les pages du site et pour générer le CV téléchargeable. Sélecteur de langue FR/EN, thème clair/sombre, accessibilité (RGAA/WCAG). Conteneurisé avec Docker (dev en hot-reload, prod via nginx avec fallback SPA), CI GitHub Actions, couverture de tests verrouillée à 100 %.",
+    stack: ['Vue.js', 'TypeScript', 'Vite', 'vue-i18n', 'Docker'],
+    role: 'Projet personnel · tu es dessus en ce moment',
+    // Intitulés EXACTS présents dans skills.ts
+    skills: [
+      'Vue.js',
+      'TypeScript',
+      'Vue Router',
+      'vue-i18n (internationalisation)',
+      'Vite',
+      'HTML / CSS',
+      'Design responsive / mobile-first',
+      'Accessibilité (RGAA / WCAG)',
+      'Docker',
+      'Docker Compose',
+      'nginx',
+      'Git / GitHub',
+      'Tests (unit. / intégration / E2E)',
+      'CI/CD',
+      'GitHub Actions',
+    ],
+  },
+  {
     name: 'Abloue',
     tagline: 'Carte interactive des départements français',
     description:

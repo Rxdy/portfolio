@@ -39,4 +39,15 @@ defineProps<{
 .nav-link:hover::after {
   width: 100%;
 }
+
+/* Page active : exact-active seulement, sinon "Accueil" (route "/") reste
+   marqué actif partout puisque toutes les routes commencent par "/". */
+.nav-link.router-link-exact-active {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.nav-link.router-link-exact-active::after {
+  width: 100%;
+}
 </style>
