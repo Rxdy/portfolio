@@ -12,7 +12,7 @@ export const profile = {
   // Avatar utilisé en attendant une vraie photo de profil de Rudy
   photo: '/people/rudy.jpg',
   // Affiché sur le CV téléchargeable, PAS en clair sur le site public
-  email: 'rudyalvs@gmail.com',
+  email: 'contact@rxdy.fr',
   github: 'https://github.com/rxdy',
 }
 
