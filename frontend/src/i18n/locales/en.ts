@@ -75,6 +75,7 @@ export default {
     required: 'All fields are required.',
     messageCount: '{count} / {max} characters',
     messageMin: 'Minimum 10 characters',
+    emailInvalid: 'Invalid email format',
     send: 'Send',
     sending: 'Sending…',
     success: 'Thank you, your message has been sent. I will get back to you shortly.',
