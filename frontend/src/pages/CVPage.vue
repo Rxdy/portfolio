@@ -5,7 +5,6 @@ import { profile, computeAge } from '@/data/profile'
 import { experiences } from '@/data/experience'
 import { projects } from '@/data/projects'
 import { diplomas } from '@/data/education'
-import { skillGroups } from '@/data/skills'
 import { capabilities } from '@/data/capabilities'
 
 // Le CV est volontairement toujours en français, quelle que soit la langue du
@@ -17,14 +16,10 @@ const githubHandle = profile.github.replace(/^https?:\/\//, '')
 const siteUrl = 'https://rxdy.fr'
 const siteLabel = 'rxdy.fr'
 
-// Sur le CV, on n'affiche PAS toutes les compétences (trop long pour un CV) : seules
-// celles de niveau Confirmé sont gardées. Le détail complet (avec les niveaux) est sur le site.
-const cvSkillGroups = skillGroups
-  .map((group) => ({
-    title: group.title,
-    skills: group.skills.filter((s) => s.level === 'Confirmé'),
-  }))
-  .filter((group) => group.skills.length > 0)
+// Le CV doit tenir sur une page : on ne met en avant que quelques projets (avec
+// juste l'accroche, pas la description complète) plutôt que la liste entière.
+// Le détail de tous les projets reste sur le site (voir QR code / rxdy.fr).
+const cvProjects = projects.slice(0, 3)
 
 function downloadPdf() {
   // Le CV se construit à partir des données du site ; l'export PDF passe par
@@ -93,14 +88,14 @@ function downloadPdf() {
 
       <section class="cv__section">
         <h2 class="cv__section-title">Projets</h2>
-        <div v-for="project in projects" :key="project.name" class="cv__entry">
+        <div v-for="project in cvProjects" :key="project.name" class="cv__entry">
           <div class="cv__entry-head">
             <span class="cv__entry-role">{{ project.name }}</span>
             <span class="cv__entry-period">{{ project.stack.join(' · ') }}</span>
           </div>
           <p class="cv__entry-org">{{ project.tagline }}</p>
-          <p class="cv__entry-desc">{{ project.description }}</p>
         </div>
+        <p class="cv__note">Tous mes projets sont détaillés sur le site.</p>
       </section>
 
       <section class="cv__section">
@@ -121,17 +116,7 @@ function downloadPdf() {
           <span class="cv__savoir-title">{{ cap.title }}</span>
           <span class="cv__savoir-items">{{ cap.summary }}</span>
         </div>
-      </section>
-
-      <section class="cv__section">
-        <h2 class="cv__section-title">Compétences clés</h2>
-        <p class="cv__skills-note">Sélection ; le détail complet et les niveaux sont sur le site.</p>
-        <div v-for="group in cvSkillGroups" :key="group.title" class="cv__skills">
-          <span class="cv__skills-title">{{ group.title }}</span>
-          <span class="cv__skills-list">
-            {{ group.skills.map((s) => s.label).join(', ') }}
-          </span>
-        </div>
+        <p class="cv__note">Détail complet des compétences (langages, outils, niveaux) sur le site.</p>
       </section>
     </article>
   </main>
@@ -317,22 +302,19 @@ function downloadPdf() {
   margin-top: var(--space-sm);
 }
 
-.cv__savoir,
-.cv__skills {
+.cv__savoir {
   font-size: 0.92rem;
 }
 
-.cv__savoir-title,
-.cv__skills-title {
+.cv__savoir-title {
   font-weight: 600;
 }
 
-.cv__savoir-items,
-.cv__skills-list {
+.cv__savoir-items {
   color: var(--color-text-muted);
 }
 
-.cv__skills-note {
+.cv__note {
   color: var(--color-text-muted);
   font-size: 0.8rem;
   font-style: italic;
@@ -370,11 +352,6 @@ function downloadPdf() {
     margin-top: 0.3rem;
   }
 
-  /* Redondant à l'impression : le site est déjà accessible via le QR code et le lien GitHub. */
-  .cv__skills-note {
-    display: none;
-  }
-
   /* On évite de couper une entrée (ou le titre d'une section) en plein milieu, mais
      la section elle-même peut se répartir sur deux pages — sinon un gros bloc qui ne
      tient pas dans l'espace restant bascule entièrement à la page suivante et laisse
@@ -384,8 +361,7 @@ function downloadPdf() {
   }
 
   .cv__entry,
-  .cv__savoir,
-  .cv__skills {
+  .cv__savoir {
     break-inside: avoid;
   }
 

@@ -21,11 +21,22 @@ describe('CVPage', () => {
     expect(wrapper.text()).toContain('Projets')
     expect(wrapper.text()).toContain('Abloue')
     expect(wrapper.text()).toContain('Savoir-faire')
-    expect(wrapper.text()).toContain('Compétences')
     // contenu tiré des modules partagés
     expect(wrapper.text()).toContain('Def Systèmes — Saint-Étienne')
     expect(wrapper.text()).toContain('Master — Gestion de projet informatique')
     expect(wrapper.find('.cv__download').exists()).toBe(true)
+  })
+
+  it('tient sur une page : seuls quelques projets, sans liste de compétences détaillée', async () => {
+    const wrapper = await mountWithRouter(CVPage)
+    const text = wrapper.text()
+    // Seuls les 3 premiers projets sont affichés, avec un renvoi vers le site pour le reste.
+    expect(wrapper.findAll('.cv__section')[1].findAll('.cv__entry')).toHaveLength(3)
+    expect(text).toContain('Tous mes projets sont détaillés sur le site.')
+    expect(text).not.toContain('Infra')
+    // Pas de liste de compétences détaillée : juste le résumé du savoir-faire + un renvoi.
+    expect(text).not.toContain('Compétences clés')
+    expect(text).toContain('Détail complet des compétences')
   })
 
   it('déclenche l’impression du navigateur au clic sur « Télécharger en PDF »', async () => {
