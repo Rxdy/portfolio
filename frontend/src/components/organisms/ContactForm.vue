@@ -10,6 +10,12 @@ type Status = 'idle' | 'sending' | 'success' | 'error'
 const ENDPOINT = '/api/contact'
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+// Alignées sur les limites du schéma backend (voir backend/src/routes/contact.ts)
+const NAME_MAX = 200
+const EMAIL_MAX = 320
+const MESSAGE_MIN = 10
+const MESSAGE_MAX = 5000
+
 const name = ref('')
 const email = ref('')
 const message = ref('')
@@ -17,7 +23,7 @@ const status = ref<Status>('idle')
 
 const nameOk = computed(() => name.value.trim().length > 0)
 const emailOk = computed(() => EMAIL_RE.test(email.value))
-const messageOk = computed(() => message.value.trim().length >= 10)
+const messageOk = computed(() => message.value.trim().length >= MESSAGE_MIN)
 const canSubmit = computed(() => [nameOk.value, emailOk.value, messageOk.value].every(Boolean))
 const submitDisabled = computed(() =>
   [!canSubmit.value, status.value === 'sending'].some(Boolean),
@@ -47,17 +53,45 @@ async function submit() {
   <form class="contact-form" novalidate @submit.prevent="submit">
     <div class="contact-form__field">
       <label for="cf-name">{{ t('contactForm.name') }} <span class="contact-form__required" aria-hidden="true">*</span></label>
-      <input id="cf-name" v-model="name" type="text" autocomplete="name" required aria-required="true" />
+      <input
+        id="cf-name"
+        v-model="name"
+        type="text"
+        autocomplete="name"
+        required
+        aria-required="true"
+        :maxlength="NAME_MAX"
+      />
     </div>
 
     <div class="contact-form__field">
       <label for="cf-email">{{ t('contactForm.email') }} <span class="contact-form__required" aria-hidden="true">*</span></label>
-      <input id="cf-email" v-model="email" type="email" autocomplete="email" required aria-required="true" />
+      <input
+        id="cf-email"
+        v-model="email"
+        type="email"
+        autocomplete="email"
+        required
+        aria-required="true"
+        :maxlength="EMAIL_MAX"
+      />
     </div>
 
     <div class="contact-form__field">
       <label for="cf-message">{{ t('contactForm.message') }} <span class="contact-form__required" aria-hidden="true">*</span></label>
-      <textarea id="cf-message" v-model="message" rows="5" required aria-required="true"></textarea>
+      <textarea
+        id="cf-message"
+        v-model="message"
+        rows="5"
+        required
+        aria-required="true"
+        :maxlength="MESSAGE_MAX"
+        aria-describedby="cf-message-count"
+      ></textarea>
+      <p id="cf-message-count" class="contact-form__count" :class="{ 'contact-form__count--low': !messageOk }">
+        {{ t('contactForm.messageCount', { count: message.length, max: MESSAGE_MAX }) }}
+        <span v-if="!messageOk">· {{ t('contactForm.messageMin') }}</span>
+      </p>
     </div>
 
     <p class="contact-form__hint">{{ t('contactForm.required') }}</p>
@@ -105,6 +139,16 @@ async function submit() {
 .contact-form__hint {
   color: var(--color-text-muted);
   font-size: 0.85rem;
+}
+
+.contact-form__count {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.contact-form__count--low {
+  color: var(--color-primary);
 }
 
 .contact-form__field input,
