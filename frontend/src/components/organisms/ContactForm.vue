@@ -20,9 +20,11 @@ const name = ref('')
 const email = ref('')
 const message = ref('')
 const status = ref<Status>('idle')
+const emailTouched = ref(false)
 
 const nameOk = computed(() => name.value.trim().length > 0)
 const emailOk = computed(() => EMAIL_RE.test(email.value))
+const emailError = computed(() => emailTouched.value && email.value.length > 0 && !emailOk.value)
 const messageOk = computed(() => message.value.trim().length >= MESSAGE_MIN)
 const canSubmit = computed(() => [nameOk.value, emailOk.value, messageOk.value].every(Boolean))
 const submitDisabled = computed(() =>
@@ -74,7 +76,13 @@ async function submit() {
         required
         aria-required="true"
         :maxlength="EMAIL_MAX"
+        :aria-invalid="emailError"
+        :aria-describedby="emailError ? 'cf-email-error' : undefined"
+        @blur="emailTouched = true"
       />
+      <p v-if="emailError" id="cf-email-error" class="contact-form__error" role="alert">
+        {{ t('contactForm.emailInvalid') }}
+      </p>
     </div>
 
     <div class="contact-form__field">
@@ -149,6 +157,12 @@ async function submit() {
 
 .contact-form__count--low {
   color: var(--color-primary);
+}
+
+.contact-form__error {
+  color: #e05563;
+  font-size: 0.85rem;
+  margin: 0;
 }
 
 .contact-form__field input,

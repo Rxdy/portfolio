@@ -71,4 +71,23 @@ describe('ContactForm', () => {
     await wrapper.get('form').trigger('submit')
     expect(spy).not.toHaveBeenCalled()
   })
+
+  it("affiche une erreur sous le champ email une fois qu'il a été quitté avec une valeur invalide", async () => {
+    const wrapper = mount(ContactForm)
+    const emailInput = wrapper.get('#cf-email')
+
+    // Pas encore touché : pas d'erreur affichée même si vide
+    expect(wrapper.find('#cf-email-error').exists()).toBe(false)
+
+    await emailInput.trigger('blur')
+    // Touché mais vide : pas d'erreur (le champ requis s'en charge)
+    expect(wrapper.find('#cf-email-error').exists()).toBe(false)
+
+    await emailInput.setValue('pas-un-email')
+    await emailInput.trigger('blur')
+    expect(wrapper.find('#cf-email-error').exists()).toBe(true)
+
+    await emailInput.setValue('rudy@example.com')
+    expect(wrapper.find('#cf-email-error').exists()).toBe(false)
+  })
 })
