@@ -343,12 +343,12 @@ function downloadPdf() {
   .cv__sheet {
     border: none;
     border-radius: 0;
-    padding: 12mm 14mm;
+    padding: 10mm 12mm;
     background: #fff;
     color: #000;
-    gap: 0.4rem;
-    font-size: 0.82rem;
-    line-height: 1.35;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    line-height: 1.3;
   }
 
   /* Rythme vertical resserré à l'impression (le confort d'une page web n'est pas
