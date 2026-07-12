@@ -49,7 +49,7 @@ function scrollToTop() {
 
       <div class="site-footer__col">
         <h2 class="site-footer__title">{{ t('footer.stackTitle') }}</h2>
-        <p class="site-footer__stack">Vue 3 · TypeScript · Vite · Docker</p>
+        <p class="site-footer__stack">Vue 3 · TypeScript · Fastify · Docker</p>
       </div>
     </div>
 
