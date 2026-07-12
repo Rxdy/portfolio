@@ -114,7 +114,7 @@ function downloadPdf() {
         <h2 class="cv__section-title">Savoir-faire</h2>
         <div v-for="cap in capabilities" :key="cap.title" class="cv__savoir">
           <span class="cv__savoir-title">{{ cap.title }}</span>
-          <span class="cv__savoir-items">{{ cap.summary }}</span>
+          <span class="cv__savoir-items">{{ ' — ' + cap.summary }}</span>
         </div>
         <p class="cv__note">Détail complet des compétences (langages, outils, niveaux) sur le site.</p>
       </section>
