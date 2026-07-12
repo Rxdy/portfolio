@@ -320,6 +320,13 @@ function downloadPdf() {
   font-style: italic;
 }
 
+/* Marges de page à 0 : supprime l'en-tête/pied de page par défaut du navigateur
+   (titre, URL, numéro de page, date) — Chrome ne les affiche pas quand la page
+   n'a pas de marge. On recrée l'espace via le padding de .cv__sheet ci-dessous. */
+@page {
+  margin: 0;
+}
+
 /* --- Impression / export PDF : feuille blanche épurée, sans chrome --- */
 @media print {
   .cv {
@@ -334,22 +341,45 @@ function downloadPdf() {
   .cv__sheet {
     border: none;
     border-radius: 0;
-    padding: 0;
+    padding: 12mm 14mm;
     background: #fff;
     color: #000;
-    gap: 0.75rem;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    line-height: 1.35;
   }
 
   /* Rythme vertical resserré à l'impression (le confort d'une page web n'est pas
-     nécessaire sur un CV imprimé — l'objectif est de tenir sur le moins de pages
-     possible sans sacrifier de contenu). */
+     nécessaire sur un CV imprimé — l'objectif est de tenir sur une seule page). */
+  .cv__header {
+    gap: 0.35rem;
+  }
+
+  .cv__photo {
+    width: 3.75rem;
+    height: 3.75rem;
+  }
+
+  .cv__qr-img {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  .cv__summary {
+    max-width: none;
+  }
+
   .cv__section {
-    gap: 0.3rem;
-    padding-top: 0.5rem;
+    gap: 0.15rem;
+    padding-top: 0.25rem;
   }
 
   .cv__entry + .cv__entry {
-    margin-top: 0.3rem;
+    margin-top: 0.1rem;
+  }
+
+  .cv__entry-desc {
+    font-size: 0.85em;
   }
 
   /* On évite de couper une entrée (ou le titre d'une section) en plein milieu, mais
