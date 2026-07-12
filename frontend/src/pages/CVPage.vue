@@ -300,6 +300,8 @@ function downloadPdf() {
 
 .cv__entry + .cv__entry {
   margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px dashed var(--color-border);
 }
 
 .cv__savoir {
@@ -370,12 +372,14 @@ function downloadPdf() {
   }
 
   .cv__section {
-    gap: 0.15rem;
-    padding-top: 0.25rem;
+    gap: 0.12rem;
+    padding-top: 0.2rem;
   }
 
   .cv__entry + .cv__entry {
-    margin-top: 0.1rem;
+    margin-top: 0.15rem;
+    padding-top: 0.1rem;
+    border-top: 1px dashed #ccc;
   }
 
   .cv__entry-desc {
