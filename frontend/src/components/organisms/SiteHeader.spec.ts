@@ -4,7 +4,7 @@ import SiteHeader from './SiteHeader.vue'
 import { makeRouter } from '@/test/router'
 
 describe('SiteHeader', () => {
-  it('affiche la marque, le lien GitHub et la navigation de pages', async () => {
+  it('affiche la marque, les liens GitHub/LinkedIn et la navigation de pages', async () => {
     const router = makeRouter()
     await router.push('/')
     await router.isReady()
@@ -15,6 +15,12 @@ describe('SiteHeader', () => {
     const github = wrapper.find('.site-header__controls a[href="https://github.com/rxdy"]')
     expect(github.exists()).toBe(true)
     expect(github.attributes('target')).toBe('_blank')
+
+    const linkedin = wrapper.find(
+      '.site-header__controls a[href="https://www.linkedin.com/in/rudy-alves-8a41b4184/"]',
+    )
+    expect(linkedin.exists()).toBe(true)
+    expect(linkedin.attributes('target')).toBe('_blank')
 
     // La navigation ne pointe QUE vers des pages, jamais vers une ancre de section (#...).
     // Accueil est explicite (permet de retirer les liens « retour » de chaque page) ; les

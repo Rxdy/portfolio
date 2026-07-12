@@ -16,6 +16,7 @@ export default {
     contact: 'Contact',
     toggleMenu: 'Ouvrir ou fermer le menu',
     github: 'Mon profil GitHub (nouvel onglet)',
+    linkedin: 'Mon profil LinkedIn (nouvel onglet)',
   },
   common: {
     readMore: 'En savoir plus →',
