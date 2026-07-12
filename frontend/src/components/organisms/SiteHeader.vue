@@ -2,10 +2,11 @@
 import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, type RouteLocationRaw } from 'vue-router'
-import { RiMenuLine, RiCloseLine, RiGithubLine } from '@remixicon/vue'
+import { RiMenuLine, RiCloseLine, RiGithubLine, RiLinkedinBoxLine } from '@remixicon/vue'
 import NavLink from '@/components/atoms/NavLink.vue'
 import ThemeToggle from '@/components/atoms/ThemeToggle.vue'
 import LocaleToggle from '@/components/atoms/LocaleToggle.vue'
+import { profile } from '@/data/profile'
 
 interface NavItem {
   label: string
@@ -54,13 +55,22 @@ watch(
 
       <div class="site-header__controls">
         <a
-          class="site-header__github"
-          href="https://github.com/rxdy"
+          class="site-header__icon-link"
+          :href="profile.github"
           target="_blank"
           rel="noopener"
           :aria-label="t('nav.github')"
         >
-          <RiGithubLine class="site-header__github-icon" />
+          <RiGithubLine class="site-header__icon" />
+        </a>
+        <a
+          class="site-header__icon-link"
+          :href="profile.linkedin"
+          target="_blank"
+          rel="noopener"
+          :aria-label="t('nav.linkedin')"
+        >
+          <RiLinkedinBoxLine class="site-header__icon" />
         </a>
         <LocaleToggle />
         <ThemeToggle />
@@ -114,7 +124,7 @@ watch(
   gap: var(--space-sm);
 }
 
-.site-header__github {
+.site-header__icon-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -127,12 +137,12 @@ watch(
   transition: border-color 0.18s ease, color 0.18s ease;
 }
 
-.site-header__github:hover {
+.site-header__icon-link:hover {
   border-color: var(--color-secondary);
   color: var(--color-primary);
 }
 
-.site-header__github-icon {
+.site-header__icon {
   width: 1.15rem;
   height: 1.15rem;
   fill: currentColor;

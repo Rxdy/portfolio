@@ -14,6 +14,7 @@ export const profile = {
   // Affiché sur le CV téléchargeable, PAS en clair sur le site public
   email: 'contact@rxdy.fr',
   github: 'https://github.com/rxdy',
+  linkedin: 'https://www.linkedin.com/in/rudy-alves-8a41b4184/',
 }
 
 // Âge calculé — reste juste sans maintenance.
