@@ -25,8 +25,8 @@ import { profile } from '@/data/profile'
     <section class="legal__section">
       <BaseHeading :level="2">Hébergement</BaseHeading>
       <p class="legal__text">
-        Le site est en cours de développement. Les informations d'hébergement seront précisées
-        ici dès sa mise en production.
+        Le site est auto-hébergé par son éditeur, {{ profile.name }}, sur une infrastructure
+        personnelle (Raspberry Pi).
       </p>
     </section>
 
