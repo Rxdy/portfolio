@@ -5,7 +5,6 @@ import { profile, computeAge } from '@/data/profile'
 import { experiences } from '@/data/experience'
 import { projects } from '@/data/projects'
 import { diplomas } from '@/data/education'
-import { skillGroups } from '@/data/skills'
 import { capabilities } from '@/data/capabilities'
 
 // Le CV est volontairement toujours en français, quelle que soit la langue du
@@ -17,14 +16,10 @@ const githubHandle = profile.github.replace(/^https?:\/\//, '')
 const siteUrl = 'https://rxdy.fr'
 const siteLabel = 'rxdy.fr'
 
-// Sur le CV, on n'affiche PAS toutes les compétences (trop long pour un CV) : seules
-// celles de niveau Confirmé sont gardées. Le détail complet (avec les niveaux) est sur le site.
-const cvSkillGroups = skillGroups
-  .map((group) => ({
-    title: group.title,
-    skills: group.skills.filter((s) => s.level === 'Confirmé'),
-  }))
-  .filter((group) => group.skills.length > 0)
+// Le CV doit tenir sur une page : on ne met en avant que quelques projets (avec
+// juste l'accroche, pas la description complète) plutôt que la liste entière.
+// Le détail de tous les projets reste sur le site (voir QR code / rxdy.fr).
+const cvProjects = projects.slice(0, 3)
 
 function downloadPdf() {
   // Le CV se construit à partir des données du site ; l'export PDF passe par
@@ -93,14 +88,14 @@ function downloadPdf() {
 
       <section class="cv__section">
         <h2 class="cv__section-title">Projets</h2>
-        <div v-for="project in projects" :key="project.name" class="cv__entry">
+        <div v-for="project in cvProjects" :key="project.name" class="cv__entry">
           <div class="cv__entry-head">
             <span class="cv__entry-role">{{ project.name }}</span>
             <span class="cv__entry-period">{{ project.stack.join(' · ') }}</span>
           </div>
           <p class="cv__entry-org">{{ project.tagline }}</p>
-          <p class="cv__entry-desc">{{ project.description }}</p>
         </div>
+        <p class="cv__note">Tous mes projets sont détaillés sur le site.</p>
       </section>
 
       <section class="cv__section">
@@ -119,19 +114,9 @@ function downloadPdf() {
         <h2 class="cv__section-title">Savoir-faire</h2>
         <div v-for="cap in capabilities" :key="cap.title" class="cv__savoir">
           <span class="cv__savoir-title">{{ cap.title }}</span>
-          <span class="cv__savoir-items">{{ cap.summary }}</span>
+          <span class="cv__savoir-items">{{ ' — ' + cap.summary }}</span>
         </div>
-      </section>
-
-      <section class="cv__section">
-        <h2 class="cv__section-title">Compétences clés</h2>
-        <p class="cv__skills-note">Sélection ; le détail complet et les niveaux sont sur le site.</p>
-        <div v-for="group in cvSkillGroups" :key="group.title" class="cv__skills">
-          <span class="cv__skills-title">{{ group.title }}</span>
-          <span class="cv__skills-list">
-            {{ group.skills.map((s) => s.label).join(', ') }}
-          </span>
-        </div>
+        <p class="cv__note">Détail complet des compétences (langages, outils, niveaux) sur le site.</p>
       </section>
     </article>
   </main>
@@ -315,27 +300,33 @@ function downloadPdf() {
 
 .cv__entry + .cv__entry {
   margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px dashed var(--color-border);
 }
 
-.cv__savoir,
-.cv__skills {
+.cv__savoir {
   font-size: 0.92rem;
 }
 
-.cv__savoir-title,
-.cv__skills-title {
+.cv__savoir-title {
   font-weight: 600;
 }
 
-.cv__savoir-items,
-.cv__skills-list {
+.cv__savoir-items {
   color: var(--color-text-muted);
 }
 
-.cv__skills-note {
+.cv__note {
   color: var(--color-text-muted);
   font-size: 0.8rem;
   font-style: italic;
+}
+
+/* Marges de page à 0 : supprime l'en-tête/pied de page par défaut du navigateur
+   (titre, URL, numéro de page, date) — Chrome ne les affiche pas quand la page
+   n'a pas de marge. On recrée l'espace via le padding de .cv__sheet ci-dessous. */
+@page {
+  margin: 0;
 }
 
 /* --- Impression / export PDF : feuille blanche épurée, sans chrome --- */
@@ -352,27 +343,47 @@ function downloadPdf() {
   .cv__sheet {
     border: none;
     border-radius: 0;
-    padding: 0;
+    padding: 10mm 12mm;
     background: #fff;
     color: #000;
-    gap: 0.75rem;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    line-height: 1.3;
   }
 
   /* Rythme vertical resserré à l'impression (le confort d'une page web n'est pas
-     nécessaire sur un CV imprimé — l'objectif est de tenir sur le moins de pages
-     possible sans sacrifier de contenu). */
+     nécessaire sur un CV imprimé — l'objectif est de tenir sur une seule page). */
+  .cv__header {
+    gap: 0.35rem;
+  }
+
+  .cv__photo {
+    width: 3.75rem;
+    height: 3.75rem;
+  }
+
+  .cv__qr-img {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  .cv__summary {
+    max-width: none;
+  }
+
   .cv__section {
-    gap: 0.3rem;
-    padding-top: 0.5rem;
+    gap: 0.12rem;
+    padding-top: 0.2rem;
   }
 
   .cv__entry + .cv__entry {
-    margin-top: 0.3rem;
+    margin-top: 0.15rem;
+    padding-top: 0.1rem;
+    border-top: 1px dashed #ccc;
   }
 
-  /* Redondant à l'impression : le site est déjà accessible via le QR code et le lien GitHub. */
-  .cv__skills-note {
-    display: none;
+  .cv__entry-desc {
+    font-size: 0.85em;
   }
 
   /* On évite de couper une entrée (ou le titre d'une section) en plein milieu, mais
@@ -384,8 +395,7 @@ function downloadPdf() {
   }
 
   .cv__entry,
-  .cv__savoir,
-  .cv__skills {
+  .cv__savoir {
     break-inside: avoid;
   }
 
