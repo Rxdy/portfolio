@@ -232,6 +232,42 @@ export const projects: Project[] = [
       'Raspberry Pi',
     ],
   },
+  {
+    name: 'Metryx',
+    tagline: 'Dashboard de monitoring système pour mon Raspberry Pi',
+    description:
+      "Tableau de bord de supervision : CPU, RAM, température, disque, réseau et containers Docker actifs, consultable depuis un navigateur mobile ou desktop, avec historique et graphiques en direct. Une page dédiée liste les containers actifs groupés par projet docker-compose, protégée par authentification car elle révèle les noms des projets hébergés — le reste du dashboard reste public. Le backend n'a accès au démon Docker qu'au travers d'un proxy en lecture seule (docker-socket-proxy), jamais du socket directement. Déployé sur mon Raspberry Pi, avec CI multi-arch (amd64/arm64) et déploiement continu via Watchtower.",
+    stack: ['Vue.js', 'TypeScript', 'Vite', 'Chart.js', 'Node.js', 'Express', 'Docker'],
+    role: 'Projet personnel · hébergé sur mon Raspberry Pi',
+    repo: 'https://github.com/Rxdy/metryx',
+    demo: 'https://metryx.rxdy.fr',
+    // Intitulés EXACTS présents dans skills.ts
+    skills: [
+      'Vue.js',
+      'TypeScript',
+      'Vue Router',
+      'Vite',
+      'Design responsive / mobile-first',
+      'Node.js',
+      'Express',
+      'Conception d’API REST',
+      'HTTP',
+      'Rate limiting',
+      'Hachage',
+      'Gestion des mots de passe',
+      'Docker',
+      'Docker Compose',
+      'Traefik',
+      'nginx',
+      'Git / GitHub',
+      'ESLint / Prettier',
+      'Tests (unit. / intégration / E2E)',
+      'CI/CD',
+      'GitHub Actions',
+      'Watchtower',
+      'Raspberry Pi',
+    ],
+  },
 ]
 
 /** Projets ayant appliqué une compétence donnée (par intitulé exact). */
