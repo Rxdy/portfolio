@@ -57,10 +57,19 @@ import { profile } from '@/data/profile'
     <section class="legal__section">
       <BaseHeading :level="2">Cookies &amp; stockage local</BaseHeading>
       <p class="legal__text">
-        Ce site n'utilise aucun cookie de suivi ni outil d'analyse d'audience. Seule votre
-        préférence d'affichage (thème clair/sombre) est enregistrée localement dans votre
-        navigateur (localStorage) — cette information reste sur votre appareil et n'est jamais
-        transmise.
+        Ce site n'utilise aucun cookie de suivi publicitaire. Seule votre préférence d'affichage
+        (thème clair/sombre) est enregistrée localement dans votre navigateur (localStorage) —
+        cette information reste sur votre appareil et n'est jamais transmise.
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <BaseHeading :level="2">Mesure d'audience</BaseHeading>
+      <p class="legal__text">
+        Ce site utilise Umami, un outil d'analyse d'audience auto-hébergé sur l'infrastructure de
+        l'éditeur, qui ne dépose aucun cookie et n'utilise aucune donnée personnelle
+        identifiante : les statistiques (pages consultées, provenance approximative) sont
+        entièrement anonymisées et ne permettent pas de vous identifier individuellement.
       </p>
     </section>
   </main>
