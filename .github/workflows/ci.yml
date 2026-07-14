@@ -107,3 +107,5 @@ jobs:
           tags: |
             ${{ steps.image.outputs.name }}:latest
             ${{ steps.image.outputs.name }}:${{ github.sha }}
+          build-args: |
+            ${{ matrix.service == 'frontend' && format('VITE_UMAMI_WEBSITE_ID={0}', vars.VITE_UMAMI_WEBSITE_ID) || '' }}

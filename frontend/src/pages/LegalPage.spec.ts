@@ -9,7 +9,7 @@ describe('LegalPage', () => {
     expect(wrapper.text()).toContain('Éditeur du site')
     expect(wrapper.text()).toContain('Données personnelles')
     expect(wrapper.text()).toContain('Cookies')
-    // Aucun tracking : seule la préférence de thème est en localStorage
     expect(wrapper.text()).toContain('localStorage')
+    expect(wrapper.text()).toContain('Mesure d\'audience')
   })
 })
