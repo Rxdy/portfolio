@@ -1,17 +1,28 @@
 # Image de prod : build TypeScript puis exécution Node seule (pas besoin de
 # nginx pour une API — le fallback SPA/reverse proxy est géré côté frontend).
-FROM node:22-alpine AS build
+#
+# --platform=$BUILDPLATFORM sur les étapes ci-dessous : npm install/tsc
+# compilent du JS/TS pur, aucune dépendance native — les faire tourner
+# nativement sur la machine qui build (plutôt que sous émulation QEMU pour
+# arm64, ~15-20x plus lent) accélère beaucoup le build multi-arch. Seule
+# l'image finale doit vraiment cibler l'architecture de destination, et elle
+# ne fait plus que des COPY.
+FROM --platform=$BUILDPLATFORM node:22-alpine AS build
 WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm install
 COPY . .
 RUN npm run build
 
+FROM --platform=$BUILDPLATFORM node:22-alpine AS deps
+WORKDIR /app
+COPY package.json package-lock.json* ./
+RUN npm install --omit=dev
+
 FROM node:22-alpine
 WORKDIR /app
 ENV NODE_ENV=production
-COPY package.json package-lock.json* ./
-RUN npm install --omit=dev
+COPY --from=deps /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 
 EXPOSE 3000

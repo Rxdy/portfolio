@@ -80,9 +80,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
+      # Pas de setup-qemu-action : les deux Dockerfile.prod compilent tout
+      # (npm install/build) dans une étape --platform=$BUILDPLATFORM native,
+      # et l'étape finale qui cible arm64 ne fait plus que des COPY — aucune
+      # exécution arm64 requise pendant le build, donc pas d'émulation à payer.
       - name: Set up Buildx
         uses: docker/setup-buildx-action@v3
 
