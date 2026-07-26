@@ -1,5 +1,8 @@
 # Étape 1 — build de l'application
-FROM node:22-alpine AS build
+# --platform=$BUILDPLATFORM : npm ci/build compilent du JS pur, pas de code
+# natif — tourner nativement plutôt que sous émulation QEMU pour arm64 est
+# nettement plus rapide. Seule l'étape 2 (nginx) doit cibler l'architecture finale.
+FROM --platform=$BUILDPLATFORM node:22-alpine AS build
 WORKDIR /app
 ARG VITE_UMAMI_WEBSITE_ID
 ENV VITE_UMAMI_WEBSITE_ID=$VITE_UMAMI_WEBSITE_ID
