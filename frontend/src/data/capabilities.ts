@@ -1,5 +1,5 @@
 import { markRaw, type Component } from 'vue'
-import { RiTeamLine, RiTestTubeLine, RiStackLine, RiShieldKeyholeLine } from '@remixicon/vue'
+import { RiTeamLine, RiTestTubeLine, RiStackLine, RiShieldKeyholeLine, RiRocketLine } from '@remixicon/vue'
 
 export interface Capability {
   icon: Component
@@ -48,9 +48,20 @@ export const capabilities: Capability[] = [
       'APIs REST (notions GraphQL) & temps réel (WebSocket / MQTT)',
       'ORM (Sequelize, Prisma) & réplication de bases',
       "Workers & files d'attente (Celery / Redis)",
-      'Reverse proxy & déploiement (Traefik, nginx)',
       'Scalabilité verticale & horizontale',
-      'Plans de maintenance BDD (méthode 3-2-1-1)',
+    ],
+  },
+  {
+    icon: markRaw(RiRocketLine),
+    title: 'Déploiement & exploitation',
+    summary: 'Mise en production, supervision et maintien en conditions opérationnelles.',
+    items: [
+      'Mise en production (go-live) & déploiement continu',
+      'Auto-déploiement (Watchtower)',
+      'Reverse proxy & certificats (Traefik, nginx, Let’s Encrypt)',
+      'Supervision & monitoring (dashboards, alertes)',
+      'Sauvegardes & plans de reprise (méthode 3-2-1-1)',
+      'DNS & noms de domaine',
     ],
   },
   {

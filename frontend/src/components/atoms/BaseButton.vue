@@ -4,7 +4,7 @@ import { RouterLink, type RouteLocationRaw } from 'vue-router'
 withDefaults(
   defineProps<{
     /** Style visuel du bouton */
-    variant?: 'primary' | 'secondary' | 'ghost'
+    variant?: 'primary' | 'secondary' | 'ghost' | 'inverse'
     /** Rend un <a> si href est fourni, sinon un <button> */
     href?: string
     /** Rend un <RouterLink> pour une navigation interne (prioritaire sur href) */
@@ -75,5 +75,17 @@ withDefaults(
 .base-button--ghost:hover {
   border-color: var(--color-primary);
   color: var(--color-primary);
+}
+
+/* Pensé pour les fonds colorés (voir .full-bleed-section--blue) : fond
+   blanc fixe + texte dans la couleur de fond de la section, donc toujours
+   lisible quel que soit le thème clair/sombre. */
+.base-button--inverse {
+  background-color: #ffffff;
+  color: var(--color-section-blue-bg);
+}
+
+.base-button--inverse:hover {
+  background-color: rgba(255, 255, 255, 0.85);
 }
 </style>

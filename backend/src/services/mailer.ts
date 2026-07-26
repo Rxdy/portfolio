@@ -1,33 +1,9 @@
-import nodemailer from 'nodemailer'
+import { createTransport, envOr, escapeHtml } from './smtpTransport.js'
 
 interface ContactPayload {
   name: string
   email: string
   message: string
-}
-
-// Serveur SMTP générique, configuré uniquement par variables d'environnement —
-// aujourd'hui le SMTP de Gmail, remplaçable par n'importe quel autre fournisseur.
-function envOr(key: string, fallback: string): string {
-  const value = process.env[key]
-  // c8/v8 perd parfois le suivi de branche sur ce genre de petite fonction très
-  // appelée (limite connue de la couverture précise de V8) ; les deux chemins
-  // sont bien exercés par les tests (cf. mailer.spec.ts), comportement vérifié.
-  /* c8 ignore next */
-  return value || fallback
-}
-
-function createTransport() {
-  const port = Number(envOr('SMTP_PORT', '587'))
-
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port,
-    secure: process.env.SMTP_SECURE === 'true',
-    auth: process.env.SMTP_USER
-      ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
-      : undefined,
-  })
 }
 
 export async function sendContactEmail({ name, email, message }: ContactPayload): Promise<void> {
@@ -63,13 +39,4 @@ export async function sendContactEmail({ name, email, message }: ContactPayload)
     text,
     html,
   })
-}
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;')
 }
