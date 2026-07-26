@@ -28,6 +28,8 @@ services:
       dockerfile: Dockerfile.prod
     container_name: portfolio-backend-prod
     restart: unless-stopped
+    depends_on:
+      - umami
     labels:
       - com.centurylinklabs.watchtower.enable=true
     environment:
@@ -40,6 +42,14 @@ services:
       - SMTP_PASS=${SMTP_PASS:-}
       - SMTP_FROM=${SMTP_FROM:-}
       - CONTACT_TO=${CONTACT_TO:-rudyalvs@gmail.com}
+      # Résumé quotidien des visites (voir backend/src/scheduler.ts) : lu
+      # depuis l'API Umami interne (même réseau docker, pas besoin de passer
+      # par analytics.rxdy.fr) et envoyé par email une fois par jour.
+      - UMAMI_BASE_URL=http://umami:3000
+      - UMAMI_WEBSITE_ID=${UMAMI_WEBSITE_ID:-}
+      - UMAMI_ADMIN_USERNAME=${UMAMI_ADMIN_USERNAME:-}
+      - UMAMI_ADMIN_PASSWORD=${UMAMI_ADMIN_PASSWORD:-}
+      - STATS_EMAIL_TO=${STATS_EMAIL_TO:-rudyalvs@gmail.com}
     networks:
       - default
 
