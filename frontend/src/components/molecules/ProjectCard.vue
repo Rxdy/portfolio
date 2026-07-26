@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { RiGithubLine, RiExternalLinkLine } from '@remixicon/vue'
 import BaseHeading from '@/components/atoms/BaseHeading.vue'
+import ProjectGallery from '@/components/molecules/ProjectGallery.vue'
 import type { Project } from '@/data/projects'
 
 defineProps<{ project: Project }>()
@@ -12,7 +13,13 @@ const { t } = useI18n()
   <article class="project-card">
     <div class="project-card__head">
       <BaseHeading :level="3">{{ project.name }}</BaseHeading>
-      <span v-if="project.role" class="project-card__role">{{ project.role }}</span>
+      <span
+        class="project-card__status"
+        :class="project.online ? 'project-card__status--online' : 'project-card__status--offline'"
+      >
+        <span class="project-card__status-dot" aria-hidden="true" />
+        {{ project.online ? t('projectCard.online') : t('projectCard.offline') }}
+      </span>
     </div>
 
     <p class="project-card__tagline">{{ project.tagline }}</p>
@@ -21,6 +28,13 @@ const { t } = useI18n()
     <ul class="project-card__stack">
       <li v-for="tech in project.stack" :key="tech">{{ tech }}</li>
     </ul>
+
+    <ProjectGallery
+      v-if="project.screenshots?.length"
+      :images="project.screenshots"
+      :name="project.name"
+      :grayscale="!project.online"
+    />
 
     <div v-if="project.repo || project.demo" class="project-card__links">
       <a
@@ -70,10 +84,40 @@ const { t } = useI18n()
   flex-wrap: wrap;
 }
 
-.project-card__role {
-  color: var(--color-primary);
-  font-size: 0.85rem;
+.project-card__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
   font-weight: 600;
+  white-space: nowrap;
+}
+
+.project-card__status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.project-card__status--online {
+  color: var(--color-online);
+  background-color: var(--color-online-bg);
+}
+
+.project-card__status--online .project-card__status-dot {
+  background-color: var(--color-online);
+}
+
+.project-card__status--offline {
+  color: var(--color-text-muted);
+  background-color: var(--color-bg);
+}
+
+.project-card__status--offline .project-card__status-dot {
+  background-color: var(--color-text-muted);
 }
 
 .project-card__tagline {

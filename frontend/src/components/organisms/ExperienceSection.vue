@@ -32,7 +32,7 @@ const experiences: Experience[] = [
 </script>
 
 <template>
-  <section id="experience" class="experience">
+  <section id="experience" class="experience full-bleed-section">
     <BaseHeading :level="2">{{ t('experience.title') }}</BaseHeading>
     <ul class="experience__timeline">
       <TimelineItem
@@ -52,8 +52,6 @@ const experiences: Experience[] = [
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
-  padding: var(--space-xl) 0;
-  border-top: 1px solid var(--color-border);
 }
 
 .experience__timeline {

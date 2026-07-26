@@ -23,7 +23,6 @@ export default {
   },
   hero: {
     eyebrow: "Hi, I'm",
-    ctaExpertise: 'See my expertise',
     ctaContact: 'Get in touch',
     ctaCv: 'My CV',
   },
@@ -52,6 +51,8 @@ export default {
   projectCard: {
     repo: 'Source code',
     demo: 'Demo',
+    online: 'Online',
+    offline: 'Offline',
   },
   projects: {
     title: 'My projects',

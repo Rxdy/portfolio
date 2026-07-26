@@ -20,8 +20,8 @@ import ExpertiseSection from '@/components/organisms/ExpertiseSection.vue'
 
 <style scoped>
 .page {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
 }
 </style>
