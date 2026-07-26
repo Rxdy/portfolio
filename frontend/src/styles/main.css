@@ -14,6 +14,17 @@
   --color-secondary-hover: #163a73;
   --header-bg: rgba(245, 247, 251, 0.8);
   --shadow: 0 8px 30px rgba(20, 35, 70, 0.08);
+
+  /* Badge "en ligne" (ProjectCard) — vert ≈4.75:1 sur son propre fond, AA. */
+  --color-online: #187a4d;
+  --color-online-bg: #e3f6ec;
+
+  /* Fond des sections "bleues" de la home (voir .full-bleed-section--blue
+     ci-dessous) — le vrai bleu du site (--color-secondary, fourni par
+     Rudy), pas --color-primary. Copié sous un autre nom, jamais réécrit,
+     pour rester la bonne couleur même là où --color-primary/--color-secondary
+     sont eux-mêmes neutralisés (en blanc) pour le contenu de ces sections. */
+  --color-section-blue-bg: var(--color-secondary);
 }
 
 /* ---------- Thème sombre ---------- */
@@ -32,6 +43,12 @@
   --color-secondary-hover: #4a74c4;
   --header-bg: rgba(15, 17, 21, 0.8);
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+
+  /* Badge "en ligne" (ProjectCard) — vert clair ≈7.6:1 sur son propre fond. */
+  --color-online: #4fd88a;
+  --color-online-bg: #123322;
+
+  --color-section-blue-bg: var(--color-secondary);
 }
 
 /* ---------- Variables indépendantes du thème ---------- */
@@ -45,7 +62,9 @@
 
   /* Divers */
   --radius: 12px;
-  --max-width: 960px;
+  /* 960px laissait trop de vide de chaque côté sur un écran desktop large,
+     avec l'impression d'un layout mobile étiré. */
+  --max-width: 1280px;
   --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
 
@@ -102,6 +121,56 @@ img {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ---------- Sections pleine largeur, alternance blanc / bleu ---------- */
+/* Casse le conteneur centré à --max-width pour que le fond de la section
+   s'étende sur toute la largeur du viewport ; le contenu reste recentré via
+   padding-inline (pas de marge/gouttière supplémentaire autour du bloc). */
+.full-bleed-section {
+  /* Pas de "width: 100vw" : sur une page avec barre de scroll verticale,
+     100vw compte sa largeur (contrairement à 100%), ce qui provoquait un
+     léger débordement horizontal sur toute la page d'accueil. La largeur
+     réelle vient du stretch flex du parent (.page) + les marges négatives
+     ci-dessous, qui suffisent à atteindre les bords du viewport. */
+  margin-inline: calc(50% - 50vw);
+  padding-block: var(--space-xl);
+  /* Gouttière confortable même sur mobile (pas juste --space-md, trop juste),
+     qui grandit encore sur desktop pour garder le contenu lisible et centré
+     à --max-width plutôt que collé aux bords de la fenêtre. */
+  padding-inline: max(var(--space-lg), calc((100vw - var(--max-width)) / 2 + var(--space-lg)));
+}
+
+@media (min-width: 1400px) {
+  .full-bleed-section {
+    padding-inline: max(var(--space-xl), calc((100vw - var(--max-width)) / 2 + var(--space-xl)));
+  }
+}
+
+.full-bleed-section--blue {
+  background-color: var(--color-section-blue-bg);
+  color: #ffffff;
+  /* Neutralise uniquement les tokens de contenu générique (texte, bordures,
+     cartes, halo de fond) — PAS --color-primary/--color-secondary : ces deux
+     tokens servent aussi de fond à de vrais boutons (BaseButton), et les
+     écraser en blanc donnerait des boutons blanc sur blanc, invisibles. Les
+     quelques éléments qui utilisent --color-primary comme couleur de TEXTE
+     (marqueurs de timeline) sont corrigés explicitement plus bas. */
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.82);
+  --color-border: rgba(255, 255, 255, 0.35);
+  --color-surface: rgba(255, 255, 255, 0.12);
+  --color-bg: var(--color-section-blue-bg);
+}
+
+/* Timeline (EducationSection) : marqueur + année utilisaient --color-primary
+   comme couleur directe, invisibles une fois en blanc sur blanc-neutralisé. */
+.full-bleed-section--blue .timeline-item__marker {
+  background-color: #ffffff;
+}
+
+.full-bleed-section--blue .timeline-item__period {
+  color: #ffffff;
 }
 
 /* Impression / export PDF : on retire le chrome du site (en-tête, pied de page) */

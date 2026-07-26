@@ -7,7 +7,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <section id="expertise" class="expertise">
+  <section id="expertise" class="expertise full-bleed-section full-bleed-section--blue">
     <BaseHeading :level="2">{{ t('expertise.title') }}</BaseHeading>
     <p class="expertise__intro">
       Au-delà du code, j'interviens sur l'ensemble du cycle d'un projet — de la planification à la
@@ -32,8 +32,6 @@ const { t } = useI18n()
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
-  padding: var(--space-xl) 0;
-  border-top: 1px solid var(--color-border);
 }
 
 .expertise__intro {
