@@ -16,9 +16,14 @@ const infos = [
 </script>
 
 <template>
-  <section id="top" class="hero">
-    <p class="hero__eyebrow">{{ t('hero.eyebrow') }}</p>
-    <BaseHeading :level="1">{{ profile.name }}</BaseHeading>
+  <section id="top" class="hero full-bleed-section">
+    <div class="hero__intro">
+      <img class="hero__photo" :src="profile.photo" :alt="profile.name" />
+      <div class="hero__intro-text">
+        <p class="hero__eyebrow">{{ t('hero.eyebrow') }}</p>
+        <BaseHeading :level="1">{{ profile.name }}</BaseHeading>
+      </div>
+    </div>
     <p class="hero__subtitle">{{ profile.summary }}</p>
     <ul class="hero__infos">
       <li v-for="item in infos" :key="item.label" class="hero__info">
@@ -27,7 +32,6 @@ const infos = [
       </li>
     </ul>
     <div class="hero__actions">
-      <BaseButton href="#expertise">{{ t('hero.ctaExpertise') }}</BaseButton>
       <BaseButton variant="secondary" :to="{ name: 'contact' }">
         {{ t('hero.ctaContact') }}
       </BaseButton>
@@ -42,7 +46,28 @@ const infos = [
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-md);
-  padding: var(--space-xl) 0;
+}
+
+.hero__intro {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.hero__intro-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.hero__photo {
+  width: 6rem;
+  height: 6rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
 }
 
 .hero__eyebrow {
