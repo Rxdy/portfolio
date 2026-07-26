@@ -78,7 +78,7 @@ export async function fetchDailyStats(day: Date = yesterday()): Promise<UmamiSta
 
   const [stats, pages, referrers] = await Promise.all([
     authedGet<UmamiStatsResponse>(`/api/websites/${websiteId}/stats?${query}`, token),
-    authedGet<UmamiMetric[]>(`/api/websites/${websiteId}/metrics?type=url&${query}`, token),
+    authedGet<UmamiMetric[]>(`/api/websites/${websiteId}/metrics?type=path&${query}`, token),
     authedGet<UmamiMetric[]>(`/api/websites/${websiteId}/metrics?type=referrer&${query}`, token),
   ])
 
