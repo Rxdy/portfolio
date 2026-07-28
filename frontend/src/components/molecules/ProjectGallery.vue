@@ -118,6 +118,7 @@ onBeforeUnmount(() => {
   display: flex;
   gap: var(--space-xs);
   overflow-x: auto;
+  min-width: 0;
 }
 
 .project-gallery__thumb {
