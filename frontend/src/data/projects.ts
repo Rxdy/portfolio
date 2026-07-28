@@ -30,7 +30,7 @@ export const projectsOrg = {
 export const projects: Project[] = [
   {
     name: 'rxdy.fr',
-    tagline: 'Le site que tu es en train de visiter',
+    tagline: 'Portfolio de Rudy Alves',
     description:
       "Ce portfolio lui-même : contenu centralisé dans une source unique de données, réutilisée à la fois par les pages du site et pour générer le CV téléchargeable. Sélecteur de langue FR/EN, thème clair/sombre, accessibilité (RGAA/WCAG). Backend Fastify dédié pour le formulaire de contact (envoi d'email via SMTP, validation, rate limiting). Conteneurisé avec Docker (dev en hot-reload, prod via nginx avec fallback SPA), CI GitHub Actions, couverture de tests verrouillée à 100 % sur les deux services.",
     stack: ['Vue.js', 'TypeScript', 'Vite', 'vue-i18n', 'Fastify', 'Node.js', 'Docker'],
@@ -157,6 +157,7 @@ export const projects: Project[] = [
       '/screenshots/queens-4-stats.png',
     ],
     repo: 'https://github.com/Rxdy/queens',
+    demo: 'https://queens.rxdy.fr',
     // Intitulés EXACTS présents dans skills.ts
     skills: [
       'Vue.js',
