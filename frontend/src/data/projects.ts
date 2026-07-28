@@ -70,6 +70,7 @@ export const projects: Project[] = [
     stack: ['HTML', 'JavaScript', 'CSS', 'jQuery', 'SVG'],
     online: false,
     repo: 'https://github.com/Abend-core/Abloue',
+    screenshots: ['/screenshots/abloue-1-carte.png', '/screenshots/abloue-2-departement.png'],
     // Intitulés EXACTS présents dans skills.ts
     skills: ['HTML / CSS', 'JavaScript', 'Design responsive / mobile-first', 'Git / GitHub'],
   },
