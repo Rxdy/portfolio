@@ -3,7 +3,6 @@ import cors from '@fastify/cors'
 import helmet from '@fastify/helmet'
 import rateLimit from '@fastify/rate-limit'
 import { contactRoute } from './routes/contact.js'
-import { startStatsScheduler } from './scheduler.js'
 
 export function buildServer() {
   const allowedOrigin = process.env.ALLOWED_ORIGIN ?? 'http://localhost:5173'
@@ -26,6 +25,5 @@ if (process.env.NODE_ENV !== 'test') {
     app.log.error(err)
     process.exit(1)
   })
-  startStatsScheduler()
 }
 /* c8 ignore stop */
