@@ -4,8 +4,6 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
-      args:
-        - VITE_UMAMI_WEBSITE_ID=${VITE_UMAMI_WEBSITE_ID:-}
     container_name: portfolio-prod
     restart: unless-stopped
     depends_on:
@@ -28,8 +26,6 @@ services:
       dockerfile: Dockerfile.prod
     container_name: portfolio-backend-prod
     restart: unless-stopped
-    depends_on:
-      - umami
     labels:
       - com.centurylinklabs.watchtower.enable=true
     environment:
@@ -42,61 +38,6 @@ services:
       - SMTP_PASS=${SMTP_PASS:-}
       - SMTP_FROM=${SMTP_FROM:-}
       - CONTACT_TO=${CONTACT_TO:-rudyalvs@gmail.com}
-      # Résumé quotidien des visites (voir backend/src/scheduler.ts) : lu
-      # depuis l'API Umami interne (même réseau docker, pas besoin de passer
-      # par analytics.rxdy.fr) et envoyé par email une fois par jour.
-      - UMAMI_BASE_URL=http://umami:3000
-      - UMAMI_WEBSITE_ID=${UMAMI_WEBSITE_ID:-}
-      - UMAMI_ADMIN_USERNAME=${UMAMI_ADMIN_USERNAME:-}
-      - UMAMI_ADMIN_PASSWORD=${UMAMI_ADMIN_PASSWORD:-}
-      - STATS_EMAIL_TO=${STATS_EMAIL_TO:-rudyalvs@gmail.com}
-    networks:
-      - default
-
-  umami:
-    image: ghcr.io/umami-software/umami:postgresql-latest
-    container_name: portfolio-umami
-    restart: unless-stopped
-    depends_on:
-      - umami-db
-    environment:
-      - DATABASE_URL=postgresql://umami:${UMAMI_DB_PASSWORD}@umami-db:5432/umami
-      - DATABASE_TYPE=postgresql
-      - APP_SECRET=${UMAMI_APP_SECRET}
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-      - traefik.enable=true
-      # Routeur public : uniquement le script de tracking + l'endpoint de
-      # collecte, appelés depuis le navigateur de chaque visiteur du site.
-      - traefik.http.routers.umami-public.rule=Host(`analytics.rxdy.fr`) && (PathPrefix(`/script.js`) || PathPrefix(`/api/send`))
-      - traefik.http.routers.umami-public.entrypoints=websecure
-      - traefik.http.routers.umami-public.tls.certresolver=leresolver
-      - traefik.http.routers.umami-public.priority=10
-      - traefik.http.routers.umami-public.service=umami
-      # Routeur admin (dashboard + login) : réservé au réseau Tailscale, pour
-      # compenser l'absence de rate-limiting sur le login côté Umami.
-      - traefik.http.routers.umami-admin.rule=Host(`analytics.rxdy.fr`)
-      - traefik.http.routers.umami-admin.entrypoints=websecure
-      - traefik.http.routers.umami-admin.tls.certresolver=leresolver
-      - traefik.http.routers.umami-admin.priority=1
-      - traefik.http.routers.umami-admin.service=umami
-      - traefik.http.routers.umami-admin.middlewares=umami-tailscale-only
-      - traefik.http.middlewares.umami-tailscale-only.ipallowlist.sourcerange=100.64.0.0/10
-      - traefik.http.services.umami.loadbalancer.server.port=3000
-    networks:
-      - default
-      - web
-
-  umami-db:
-    image: postgres:16-alpine
-    container_name: portfolio-umami-db
-    restart: unless-stopped
-    environment:
-      - POSTGRES_DB=umami
-      - POSTGRES_USER=umami
-      - POSTGRES_PASSWORD=${UMAMI_DB_PASSWORD}
-    volumes:
-      - umami-db-data:/var/lib/postgresql/data
     networks:
       - default
 
@@ -105,5 +46,3 @@ networks:
   web:
     external: true
 
-volumes:
-  umami-db-data: {}
