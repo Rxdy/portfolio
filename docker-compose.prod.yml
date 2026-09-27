@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile.prod
     container_name: portfolio-prod
     restart: unless-stopped
+    mem_limit: 64m
     depends_on:
       - backend
     labels:
@@ -26,6 +27,7 @@ services:
       dockerfile: Dockerfile.prod
     container_name: portfolio-backend-prod
     restart: unless-stopped
+    mem_limit: 192m
     labels:
       - com.centurylinklabs.watchtower.enable=true
     environment:
