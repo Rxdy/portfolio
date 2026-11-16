@@ -37,7 +37,7 @@ function onKeydown(event: KeyboardEvent): void {
   // ci-dessous) : sa suppression passe par le cycle réactif de Vue, pas
   // forcément synchrone avec un keydown répété très rapidement (touche
   // maintenue) juste avant/pendant la fermeture.
-  /* c8 ignore next */
+  /* v8 ignore next -- @preserve */
   if (openIndex.value === null) return
   if (event.key === 'Escape') close()
   if (event.key === 'ArrowRight') next()
