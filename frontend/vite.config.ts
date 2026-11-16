@@ -34,7 +34,8 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['src/**/*.{ts,vue}'],
-      exclude: ['src/**/*.spec.ts', 'src/main.ts', 'src/vite-env.d.ts', 'src/test/**'],
+      // les fichiers de traduction ne sont que des textes (aucune logique) : vitest 4 les compte désormais à 0 %
+      exclude: ['src/**/*.spec.ts', 'src/main.ts', 'src/vite-env.d.ts', 'src/test/**', 'src/i18n/locales/**'],
       thresholds: { statements: 100, branches: 100, functions: 100, lines: 100 },
     },
   },
