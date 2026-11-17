@@ -1,0 +1,22 @@
+{
+  "projet": "portfolio",
+  "plateformes": "linux/amd64,linux/arm64",
+  "services": {
+    "frontend": {
+      "image": "portfolio-frontend",
+      "contexte": "frontend",
+      "dockerfile": "frontend/Dockerfile.prod",
+      "sources": [
+        "frontend"
+      ]
+    },
+    "backend": {
+      "image": "portfolio-backend",
+      "contexte": "backend",
+      "dockerfile": "backend/Dockerfile.prod",
+      "sources": [
+        "backend"
+      ]
+    }
+  }
+}
